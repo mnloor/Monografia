@@ -1,0 +1,503 @@
+\documentclass[final,t]{beamer}
+
+\include{formato}
+
+\addbibresource{bibMonografia.bib}
+
+%--------------------
+\begin{document}
+\begin{frame}[t]
+
+%------- Línea superior
+\vspace*{-3mm}
+\noindent\hspace*{-10mm}{\color{azul}\rule{1.1\linewidth}{1.2cm}}
+\vspace{0.4cm}
+
+%------- Encabezado
+\begin{columns}[T]
+% Logo PUCE
+\begin{column}{0.17\linewidth}
+  \centering
+  \includegraphics[width=0.99\linewidth]{logoPUCE-04-a.png}
+\end{column}
+% Título y autores centrados
+\begin{column}{0.66\linewidth}
+  \centering
+  {\bfseries\LARGE Aprendizaje profundo para el reconocimiento de polinizadores: una revisión sistemática de arquitecturas, métricas y factores de desempeño}\\[1cm]
+  {\large\bfseries Melani Nayely Loor Pérez; Andrés Esteban Merino Toapanta (tutor)}\\[0.2cm]
+  {\large\bfseries Facultad de Ciencias Exactas, Naturales y Ambientales, Carrera de Ciencia de Datos}\\[5mm]
+  {\large \texttt{\color{azul} mnloor@puce.edu.ec};\;
+          \texttt{\color{azul} aemerinot@puce.edu.ec}}
+\end{column}
+% Carrera
+\begin{column}{0.17\linewidth}
+  \centering\LARGE\bfseries\hspace{0pt}\\Carrera de\\Ciencia de Datos
+\end{column}
+\end{columns}
+
+\vspace{8mm}
+
+%------- Resumen
+\begin{block}{RESUMEN}%
+\justifying
+Se realizó una revisión sistemática sobre el reconocimiento de imágenes de polinizadores mediante aprendizaje profundo. La búsqueda se efectuó en Scopus, siguiendo el enfoque PRISMA para la identificación, cribado e inclusión de estudios. El corpus final estuvo conformado por 53 investigaciones publicadas desde 2020, centradas en clasificación, detección y segmentación. Para ordenar la heterogeneidad de la literatura, los estudios se analizaron mediante bloques metodológicamente semejantes según tarea, arquitectura y métricas reportadas. Los resultados muestran un predominio de la detección y de la familia YOLO, junto con modelos como ResNet, MobileNet, EfficientNet, Faster R-CNN y Mask R-CNN. Las métricas más frecuentes fueron exactitud, precisión y sensibilidad; en detección destacaron mAP, IoU y FPS. Además, el rendimiento se asoció con estrategias como aumento de datos, aprendizaje por transferencia y métodos de optimización.
+
+
+
+\vspace{0.3cm}
+\textbf{Palabras clave:} Aprendizaje profundo, Métricas de desempeño, Polinizadores, Reconocimiento de imágenes, Visión por computador.
+\end{block}
+
+\vspace{0.5cm}
+
+%------- Desarrollo
+\begin{block}{DESARROLLO}
+
+\vspace{-1.5cm}
+\begin{columns}[T]
+
+%------- Primera columna
+\begin{column}{0.315\linewidth}
+
+\begin{enumerate}
+
+%------- Introducción
+\item \textbf{Introducción}\\[0.2cm]
+\justifying
+Los polinizadores son esenciales para la biodiversidad, la estabilidad de los ecosistemas y la seguridad alimentaria; su declive exige sistemas de monitoreo más eficaces y reproducibles \parencite{ghosh2025pollinator,hellwig2024pollinator}. La visión por computador y el aprendizaje profundo permiten automatizar su identificación, aunque esta sigue siendo compleja por la similitud morfológica, la variabilidad visual y los fondos naturales \parencite{hoye2021entomology,spiesman2021bumblebee,calisan2025evaluation}. Por ello, se requiere sintetizar la literatura reciente sobre modelos, métricas y protocolos de evaluación \parencite{nizam2020segmentation}.
+
+
+%------- Objetivo general
+\vspace{0.5cm}
+\item \textbf{Objetivo general}\\[0.2cm]
+
+Caracterizar el estado del arte en el reconocimiento de imágenes de polinizadores en aprendizaje profundo, mediante una revisión sistemática de estudios científicos desde 2020 sobre redes neuronales en clasificación, detección o segmentación.
+
+%------- Preguntas de investigación 
+
+\vspace{0.5cm}
+\item \textbf{Preguntas de investigación}\\[0.2cm]
+RQ1. ¿Qué arquitecturas y tipos de modelos se utilizan con mayor frecuencia?\\
+RQ2. ¿Qué métricas de evaluación se reportan con mayor recurrencia?\\
+RQ3. ¿Qué factores técnicos se asocian con mejores niveles de desempeño?
+
+\end{enumerate}
+\end{column}
+
+%------- Segunda columna
+\begin{column}{0.34\linewidth}
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+\justifying
+
+
+%------- Metodología 
+
+\vspace{0.5cm}
+\item \textbf{Metodología}\\[0.2cm]
+Revisión sistemática cualitativo-descriptiva guiada por PRISMA.
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    node distance=0.8cm,
+    every node/.style={font=\scriptsize}
+]
+
+\tikzset{
+    caja/.style={
+        rounded corners=3pt,
+        draw=azul,
+        fill=azulclaro,
+        text width=3.3cm,
+        align=center,
+        minimum height=1.25cm,
+        inner sep=4pt
+    }
+}
+
+\node[caja] (a) {
+    Registros sin duplicados en Scopus \\
+    \textbf{n = 281}
+};
+
+\node[caja, right=of a] (c) {
+    Cribado \\
+    Aceptados \textbf{n = 54}\\
+    Excluidos \textbf{n = 227}
+};
+
+\node[caja, right=of c] (d) {
+    Texto completo y elegibilidad \\
+    Excluido: \textbf{n = 1}
+};
+
+\node[caja, right=of d, fill=verde!18, draw=verde] (e) {
+    Corpus final de análisis\\
+    \textbf{n = 53 estudios}
+};
+
+\draw[-Latex, thick, azul] (a.east) -- (c.west);
+\draw[-Latex, thick, azul] (c.east) -- (d.west);
+\draw[-Latex, thick, verde] (d.east) -- (e.west);
+
+\end{tikzpicture}%
+}
+\end{center}
+
+
+%------- RQ1: Tareas y arquitecturas
+\vspace{0.5cm}
+\item \textbf{RQ1: Tareas y arquitecturas}\\[0.2cm]
+
+La detección fue la tarea predominante, seguida por la clasificación y la segmentación. Este patrón explica la alta presencia de modelos orientados a localización de objetos, especialmente YOLO, por su eficiencia en escenarios de monitoreo visual automatizado.
+
+
+\begin{center}
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[
+    font=\tiny,
+    barraFondo/.style={draw=black!25, fill=black!8, line width=0.2pt},
+    barraAzul/.style={draw=azul, fill=azul, line width=0.2pt},
+    barraNaranja/.style={draw=orange!80!black, fill=orange!75, line width=0.2pt}
+]
+
+% ---------------- Parámetros corregidos ----------------
+\def\xbarra{2.8}
+\def\xvalor{7.4}
+\def\largobarra{3.8}
+\def\alto{0.09}
+
+% =====================================================
+% a) Tipos de tarea
+% =====================================================
+
+\foreach \nombre/\valor/\porcentaje/\i in {
+    {Detección}/37/69.8/0,
+    {Clasificación}/29/54.7/1,
+    {Segmentación}/10/18.9/2
+}{
+    \pgfmathsetmacro{\y}{-\i*0.45}
+    \pgfmathsetmacro{\ancho}{\valor/40*\largobarra}
+
+    \node[anchor=east] at (\xbarra-0.12,\y) {\nombre};
+
+    \draw[barraFondo]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\largobarra},\y+\alto/2);
+
+    \draw[barraAzul]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\ancho},\y+\alto/2);
+
+    \node[anchor=west] at (\xvalor,\y) {\valor\;(\porcentaje\,\%)};
+}
+
+% =====================================================
+% b) Arquitecturas
+% =====================================================
+
+\foreach \nombre/\valor/\porcentaje/\i in {
+    {YOLO}/26/49.1/0,
+    {Otros}/25/47.2/1,
+    {ResNet}/12/22.6/2,
+    {Faster R-CNN}/8/15.1/3,
+    {MobileNet}/8/15.1/4,
+    {EfficientNet}/5/9.4/5
+}{
+    \pgfmathsetmacro{\y}{-1.95-\i*0.42}
+    \pgfmathsetmacro{\ancho}{\valor/30*\largobarra}
+
+    \node[anchor=east] at (\xbarra-0.12,\y) {\nombre};
+
+    \draw[barraFondo]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\largobarra},\y+\alto/2);
+
+    \draw[barraNaranja]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\ancho},\y+\alto/2);
+
+    \node[anchor=west] at (\xvalor,\y) {\valor\;(\porcentaje\,\%)};
+}
+
+\end{tikzpicture}%
+}
+
+\vspace{0.10cm}
+
+\begin{flushleft}
+\tiny\textit{Nota.} Elaboración propia.
+\end{flushleft}
+
+\end{center}
+
+
+%------- RQ2: Métricas
+\item \textbf{RQ2: Métricas}\\[0.2cm]
+
+Las métricas varían según la tarea: clasificación prioriza exactitud, precisión, sensibilidad y F1; detección emplea mAP, IoU y FPS; y segmentación utiliza IoU, Dice y F1.
+
+
+\end{enumerate}
+\end{column}
+
+%------- Tercera columna
+\begin{column}{0.315\linewidth}
+\begin{enumerate}
+\setcounter{enumi}{6}
+\justifying
+
+\vspace{0.5cm}
+
+
+\begin{center}
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[
+    font=\tiny,
+    barraFondo/.style={
+        draw=black!25,
+        fill=black!8,
+        line width=0.2pt
+    },
+    barraAzul/.style={
+        draw=azul,
+        fill=azul,
+        line width=0.2pt
+    }
+]
+
+% ---------------- Parámetros ----------------
+\def\xbarra{2.7}
+\def\xvalor{7.4}
+\def\largobarra{3.9}
+\def\alto{0.09}
+\def\sep{0.42}
+
+% =====================================================
+% Métricas de evaluación
+% =====================================================
+
+\foreach \nombre/\valor/\porcentaje/\i in {
+    {Exactitud}/48/90.6/0,
+    {Precisión}/42/79.2/1,
+    {Sensibilidad}/32/60.4/2,
+    {mAP}/29/54.7/3,
+    {Medida F1}/25/47.2/4,
+    {IoU}/23/43.4/5,
+    {FPS}/21/39.6/6,
+    {AUC}/6/11.3/7,
+    {Dice}/1/1.9/8
+}{
+    \pgfmathsetmacro{\y}{-\i*\sep}
+    \pgfmathsetmacro{\ancho}{\valor/50*\largobarra}
+
+    % Nombre de la métrica
+    \node[anchor=east] 
+        at (\xbarra-0.12,\y) {\nombre};
+
+    % Barra de fondo
+    \draw[barraFondo]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\largobarra},\y+\alto/2);
+
+    % Barra principal
+    \draw[barraAzul]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\ancho},\y+\alto/2);
+
+    % Valor y porcentaje
+    \node[anchor=west] 
+        at (\xvalor,\y) 
+        {\valor\;(\porcentaje\,\%)};
+}
+
+\end{tikzpicture}%
+}
+
+\vspace{0.10cm}
+
+\begin{flushleft}
+\tiny\textit{Nota.} Elaboración propia.
+\end{flushleft}
+
+\end{center}
+
+%------- RQ3: Factores técnicos 
+\vspace{0.5cm}
+\item \textbf{RQ3: Factores técnicos}\\[0.2cm]
+
+El aumento de datos fue la estrategia más reportada, seguida por transferencia de aprendizaje y optimización, debido a la limitada disponibilidad de datos, el desbalance de clases y la variabilidad visual de los polinizadores.
+
+\begin{center}
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[
+    font=\tiny,
+    barraFondo/.style={
+        draw=black!25,
+        fill=black!8,
+        line width=0.2pt
+    },
+    barraAzul/.style={
+        draw=azul,
+        fill=azul,
+        line width=0.2pt
+    }
+]
+
+% ---------------- Parámetros ----------------
+\def\xbarra{4.2}
+\def\xvalor{8.9}
+\def\largobarra{3.9}
+\def\alto{0.09}
+\def\sep{0.45}
+
+% =====================================================
+% Factores técnicos
+% =====================================================
+
+\foreach \nombre/\valor/\porcentaje/\i in {
+    {Aumento de datos}/49/92.5/0,
+    {Aprendizaje por transferencia}/34/64.2/1,
+    {Método de optimización}/27/50.9/2
+}{
+    \pgfmathsetmacro{\y}{-\i*\sep}
+    \pgfmathsetmacro{\ancho}{\valor/50*\largobarra}
+
+    % Nombre del factor técnico
+    \node[anchor=east] 
+        at (\xbarra-0.12,\y) {\nombre};
+
+    % Barra de fondo
+    \draw[barraFondo]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\largobarra},\y+\alto/2);
+
+    % Barra principal
+    \draw[barraAzul]
+        (\xbarra,\y-\alto/2)
+        rectangle
+        ({\xbarra+\ancho},\y+\alto/2);
+
+    % Valor y porcentaje
+    \node[anchor=west] 
+        at (\xvalor,\y) 
+        {\valor\;(\porcentaje\,\%)};
+}
+
+\end{tikzpicture}%
+}
+
+\vspace{0.10cm}
+
+\begin{flushleft}
+\tiny\textit{Nota.} Elaboración propia.
+\end{flushleft}
+
+\end{center}
+
+
+%------- Bloques de comparación metodológica
+\vspace{0.5cm}
+\item \textbf{Bloques de comparación}\\[0.2cm]
+
+\begin{table}[H]
+\centering
+\label{tab:sintesis-tareas-modelos-metricas}
+
+\footnotesize
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{3pt}
+
+\begin{tabularx}{\linewidth}{@{}
+    >{\justifying\arraybackslash}p{2.5cm}
+    @{\hspace{1.90cm}}
+    >{\hsize=0.9\hsize\linewidth=\hsize\justifying\arraybackslash}X
+    @{\hspace{0.7cm}}
+    >{\hsize=0.70\hsize\linewidth=\hsize\justifying\arraybackslash}X
+    @{\hspace{0.7cm}}
+    >{\hsize=1.40\hsize\linewidth=\hsize\justifying\arraybackslash}X
+@{}}
+\toprule
+\textbf{Tarea} & 
+\textbf{Modelos frecuentes} & 
+\textbf{Métricas clave} & 
+\textbf{Factores técnicos} \\
+\midrule
+
+Clasificación &
+CNN, ResNet, EfficientNet, Inception y MobileNet &
+Exactitud, precisión, sensibilidad y F1 &
+Transferencia de aprendizaje, aumento de datos y optimización \\
+
+Detección espacial &
+YOLO, Faster R-CNN y Mask R-CNN &
+mAP, IoU y FPS &
+Ajuste fino, aumento de datos y tasa de aprendizaje \\
+
+Detección general &
+YOLO, Faster R-CNN, Mask R-CNN y ResNet &
+Exactitud, precisión, sensibilidad y F1 &
+Transferencia de aprendizaje, aumento de datos y optimización \\
+
+Segmentación &
+Mask R-CNN, YOLO y otros enfoques &
+IoU, Dice y F1 &
+Aumento de datos, transferencia de aprendizaje y ajuste fino \\
+
+\bottomrule
+\end{tabularx}
+
+\vspace{0.08cm}
+\begin{flushleft}
+\footnotesize\textit{Nota.} Elaboración propia.
+\end{flushleft}
+
+\end{table}
+
+
+\end{enumerate}
+\end{column}
+
+\end{columns}
+\end{block}
+
+\vspace{0.2cm}
+
+%------- Conclusiones
+\begin{block}{CONCLUSIONES}
+\vspace{-0.8cm}
+\begin{enumerate}
+\item El reconocimiento de imágenes de polinizadores mediante aprendizaje profundo debe analizarse según la tarea que se busca resolver. La detección permite localizar organismos en escenarios de monitoreo automatizado, la clasificación aporta a la diferenciación taxonómica y la segmentación permite una delimitación espacial más precisa del polinizador frente al fondo.
+\item La pertinencia de una arquitectura depende de su correspondencia con el objetivo técnico del estudio. Modelos como YOLO resultan adecuados cuando se requiere localización eficiente, mientras que ResNet, EfficientNet, MobileNet e Inception son más útiles cuando el interés principal es clasificar especies, familias o grupos funcionales.
+\item La comparación del desempeño requiere interpretar qué mide cada métrica dentro de la tarea evaluada. En clasificación, las métricas valoran la asignación correcta de categorías; en detección, integran localización y eficiencia; y en segmentación, permiten medir la coincidencia espacial entre el polinizador y la predicción del modelo.
+\item El rendimiento depende del modelo y de los factores técnicos aplicados en el entrenamiento. El aumento de datos aporta robustez frente a cambios de escala, postura e iluminación; el aprendizaje por transferencia facilita adaptar representaciones visuales previas al dominio de polinizadores; y la optimización contribuye a una convergencia más estable del modelo. La comparación por bloques metodológicos permite interpretar estos factores dentro de estudios con tareas, métricas y condiciones de evaluación semejantes.
+\end{enumerate}
+\end{block}
+
+
+
+\vspace{0.2cm}
+
+%------- Referencias
+\begin{block}{REFERENCIAS}%
+\small
+\nocite{*}
+\printbibliography
+\end{block}
+
+%------- Línea inferior
+% Adaptar el espacio para que llegue al final
+\vspace{\fill}
+\noindent\hspace*{-10mm}{\color{azul}\rule{1.1\linewidth}{1.2cm}}
+
+\end{frame}
+\end{document}
