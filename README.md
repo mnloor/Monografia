@@ -96,14 +96,14 @@ La monografía fue desarrollada en Overleaf. Los archivos fuente de LaTeX se enc
 Si utilizas o referencias este trabajo, puedes citarlo de la siguiente manera:
 
 ```text
-Loor Pérez, M. N. (2026). Aprendizaje profundo para el reconocimiento de polinizadores: una revisión sistemática de arquitecturas, métricas y factores de desempeño. Pontificia Universidad Católica del Ecuador.
+Loor, M. (2026). Aprendizaje profundo para el reconocimiento de polinizadores: una revisión sistemática de arquitecturas, métricas y factores de desempeño. Pontificia Universidad Católica del Ecuador.
 ```
 
 ## Autora
 
-**Melani Nayely Loor Pérez**
-Pontificia Universidad Católica del Ecuador
-Facultad de Ciencias Exactas, Naturales y Ambientales
+**Melani Nayely Loor Pérez**\\
+Pontificia Universidad Católica del Ecuador\\
+Facultad de Ciencias Exactas, Naturales y Ambientales\\
 Carrera de Ciencia de Datos
 
 ## Tutor
