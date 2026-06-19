@@ -3,7 +3,6 @@
 ![Tema](https://img.shields.io/badge/tema-aprendizaje%20profundo-blue)
 ![Área](https://img.shields.io/badge/área-visión%20por%20computador-green)
 ![Tipo](https://img.shields.io/badge/tipo-revisión%20sistemática-purple)
-![Idioma](https://img.shields.io/badge/idioma-español-red)
 
 Este repositorio contiene la monografía final y el póster académico titulados:
 
