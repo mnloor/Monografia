@@ -1,0 +1,35 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Conclusiones}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A partir de la revisión sistemática realizada, se concluye que el reconocimiento de imágenes de polinizadores mediante aprendizaje profundo constituye una línea relevante dentro de la visión por computador aplicada al monitoreo ecológico. La organización de los estudios por bloques comparables permitió interpretar la evidencia de manera ordenada, relacionando el tipo de tarea, la arquitectura utilizada, las métricas de evaluación y las estrategias técnicas reportadas en cada investigación.
+
+\begin{enumerate}
+    \item Respecto a la primera pregunta de investigación, se concluye que la elección de arquitecturas en el reconocimiento de imágenes de polinizadores está directamente vinculada con la tarea abordada. Los modelos de detección, especialmente la familia YOLO, resultan pertinentes cuando el objetivo es localizar polinizadores en imágenes y apoyar escenarios de monitoreo automatizado. En cambio, arquitecturas como ResNet, EfficientNet, MobileNet e Inception son más relevantes en tareas de clasificación, donde se busca diferenciar especies, familias o grupos funcionales a partir de rasgos visuales. La segmentación cumple una función complementaria, al permitir una delimitación espacial más detallada del organismo y su separación respecto del fondo. \\
+    
+    \item La segunda pregunta de investigación permite concluir que las métricas de evaluación adquieren sentido según la tarea y el tipo de modelo analizado. En clasificación, exactitud, precisión, sensibilidad y medida F1 permiten valorar la asignación correcta de categorías. En detección, mAP, IoU y FPS son más adecuados porque integran localización, precisión del reconocimiento y velocidad de inferencia. En segmentación, IoU, Dice y medida F1 permiten evaluar la coincidencia espacial entre la predicción del modelo y la región real del polinizador. Por ello, la comparación del desempeño requiere considerar la correspondencia entre tarea, arquitectura y métrica empleada. \\
+    
+    \item Para la tercera pregunta de investigación, se concluye que el rendimiento de los modelos se fortalece mediante estrategias técnicas orientadas a mejorar la generalización, la adaptación al dominio y la estabilidad del entrenamiento. El aumento de datos permite enfrentar variaciones frecuentes en imágenes de polinizadores, como cambios de iluminación, postura, escala, fondo y movimiento. El aprendizaje por transferencia facilita el uso de modelos preentrenados en conjuntos de datos biológicos con disponibilidad limitada de imágenes etiquetadas. Los métodos de optimización y el ajuste de hiperparámetros contribuyen a mejorar el proceso de aprendizaje y el desempeño final de las arquitecturas utilizadas. \\
+    
+    \item La comparación por bloques metodológicos constituye un aporte central de la revisión porque permite interpretar el estado del arte sin reducir el análisis a una única métrica o a una sola familia de modelos. Esta organización relaciona clasificación, detección y segmentación con sus arquitecturas, métricas y estrategias de entrenamiento correspondientes. De este modo, el desempeño de los modelos se interpreta dentro del propósito técnico para el cual fueron diseñados, evitando comparaciones generales entre estudios con objetivos, datos y condiciones de evaluación distintas. \\
+    
+    \item El reconocimiento automatizado de polinizadores mediante aprendizaje profundo aporta una base técnica útil para el monitoreo ecológico, al facilitar la identificación visual de organismos y ampliar la capacidad de análisis de imágenes en contextos biológicos. La revisión permite establecer que la utilidad de estos modelos se fortalece cuando existe correspondencia entre la tarea de reconocimiento, la arquitectura seleccionada, la métrica empleada y la estrategia de entrenamiento aplicada. Esta relación constituye un criterio central para orientar aplicaciones futuras en función de las necesidades del monitoreo, la calidad de los datos disponibles y el nivel de detalle requerido en el análisis de polinizadores.
+
+\end{enumerate}
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+

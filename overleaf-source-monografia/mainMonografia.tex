@@ -1,0 +1,140 @@
+\documentclass[11pt,oneside]{book}
+
+\usepackage{MonografiaPUCE}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Paquetes adicionales
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, babel}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{threeparttable}
+\usetikzlibrary{positioning}
+\usetikzlibrary{mindmap,trees}
+\usepackage{forest}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+\usetikzlibrary{calc}
+\usetikzlibrary{fit, backgrounds}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{makecell}
+\usepackage{xltabular}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Comandos adicionales
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Datos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\titulo{Aprendizaje profundo para el reconocimiento de polinizadores: una revisión sistemática de arquitecturas, métricas y factores de desempeño}
+\carrera{Ciencia de Datos}
+\titulocarrera{Ingeniero en Ciencia de Datos}
+\autor{Melani Nayely Loor Pérez}
+\tutor{Andrés Esteban Merino Toapanta}
+% Fecha portada
+\fecha{2026}
+% Fecha aprobación
+\fechaC{25 de junio de 2026}
+% Archivo de bibliografía
+\addbibresource{bibMonografia.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Comentar las secciones que no se quieran mostrar
+\includeonly{
+    Capitulos/01-Resumen,
+    Capitulos/02-Introduccion,
+    Capitulos/03-Objetivos,
+    Capitulos/04-FundamentoTeorico,
+    Capitulos/05-Metodologia,
+    Capitulos/06-Resultados,
+    Capitulos/07-Conclusiones,
+}
+
+\begin{document}
+
+\frontmatter
+\portadilla
+\certificacion
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{dedicatoria}
+    A mis padres, Héctor y Rosita, por su esfuerzo constante, su apoyo incondicional y por haberme dado las oportunidades que hicieron posible llegar hasta este momento.
+\end{dedicatoria} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{agradecimiento}
+    A mis padres, Héctor y Rosita, quienes han sido el pilar fundamental en cada etapa de mi formación. Gracias por su apoyo incondicional, por su esfuerzo constante y por creer en mí en todo momento. Todo lo que he alcanzado hasta ahora es, en gran parte, resultado de su dedicación, sus valores y el amor con el que me han acompañado siempre.
+
+    A mi hermano, Andrés, por su apoyo, compañía y por estar presente a lo largo de este proceso. Gracias por los momentos compartidos y por tu respaldo constante.
+    
+    A mi tutor de monografía, Andrés Merino, por su guía, paciencia y compromiso durante el desarrollo de este trabajo. Sus observaciones, recomendaciones y acompañamiento académico fueron esenciales para orientar este proceso y fortalecer la calidad de la investigación.
+
+    Al equipo dinamita, Sofía y Martín, por su apoyo, compañía y por hacer más llevadero este camino. Gracias por estar presentes tanto en los momentos de estrés como en los de alegría y por motivarme a seguir adelante.
+
+    Finalmente, a mi gatito, Itzaé, por acompañarme en cada madrugada de trabajo, por su presencia constante durante los momentos más exigentes y por ser una fuente silenciosa de calma y compañía. 
+\end{agradecimiento}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begingroup
+\singlespacing
+\setlength{\parskip}{8 pt}
+\listoftables
+\endgroup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begingroup
+\singlespacing
+\setlength{\parskip}{8 pt}
+\listoffigures
+\endgroup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+\addtolength{\abovedisplayskip}{-2.2mm}
+\addtolength{\belowdisplayskip}{-2.2mm}
+
+
+\include{Capitulos/01-Resumen}
+\include{Capitulos/02-Introduccion}
+\include{Capitulos/03-Objetivos}
+\include{Capitulos/04-FundamentoTeorico}
+\include{Capitulos/05-Metodologia}
+\include{Capitulos/06-Resultados}
+\include{Capitulos/07-Conclusiones}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nocite{*}
+\printbibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\end{document}

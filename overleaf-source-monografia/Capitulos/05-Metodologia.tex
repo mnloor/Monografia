@@ -1,0 +1,366 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Metodología}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Tipo de estudio}
+
+La presente investigación se desarrolla bajo un enfoque cualitativo-descriptivo, mediante una revisión sistemática de la literatura orientada a caracterizar el estado del arte del reconocimiento de imágenes de polinizadores mediante aprendizaje profundo. Para ello, se adoptan las directrices PRISMA (\textit{Preferred Reporting Items for Systematic Reviews and Meta-Analyses}), debido a que proporciona una estructura explícita, reproducible y trazable para la identificación, cribado e inclusión de estudios científicos.
+
+
+\section{Protocolo de revisión}
+
+Antes de iniciar la revisión sistemática se definió un protocolo de trabajo para orientar el proceso de búsqueda, selección y análisis de los estudios. Este protocolo tuvo como finalidad asegurar que la revisión siguiera un procedimiento ordenado, transparente y reproducible, de acuerdo con las directrices PRISMA.
+
+El protocolo incluyó la delimitación del tema de estudio, la selección de Scopus como fuente de información, el diseño de una estrategia de búsqueda mediante operadores booleanos, la definición de criterios de inclusión y exclusión, y la estructuración del proceso de cribado. Este proceso contempló la revisión de duplicados, el análisis por título, resumen y palabras clave, y la evaluación de texto completo. Además, se definieron previamente las variables que serían extraídas de cada artículo, entre ellas las arquitecturas utilizadas, el tipo de tarea, las métricas de desempeño y los factores técnicos asociados al rendimiento de los modelos.
+
+\section{Preguntas de investigación}
+
+Con el fin de estructurar el análisis de la literatura revisada, se plantearon preguntas de investigación que orientan la identificación, comparación e interpretación de los estudios incluidos. Estas preguntas permiten vincular directamente los objetivos específicos con el proceso de revisión sistemática, asegurando que la extracción de datos y la discusión de resultados se centren en aspectos relevantes para caracterizar el estado del arte.
+
+\begin{itemize}
+    \item \textbf{RQ1:} ¿Cuáles son las arquitecturas y tipos de modelos de aprendizaje profundo más utilizados para el reconocimiento de imágenes de polinizadores en artículos publicados desde el año 2020?
+    
+    \item \textbf{RQ2:} ¿Qué métricas de evaluación se reportan con mayor frecuencia en los estudios sobre reconocimiento de polinizadores mediante aprendizaje profundo?
+    
+    \item \textbf{RQ3:} ¿Qué factores técnicos se asocian con mayores niveles de precisión en los modelos de reconocimiento de polinizadores?
+\end{itemize}
+
+\section{Fuente de información y estrategia de búsqueda}
+
+La identificación de estudios se realiza en la base de datos Scopus, seleccionada por su cobertura multidisciplinaria y su relevancia en áreas como visión por computador, aprendizaje automático y ciencias ambientales. 
+
+Para construir la estrategia de búsqueda se definieron palabras clave agrupadas según las principales dimensiones de la revisión: población de interés, métodos de aprendizaje profundo, tareas de visión por computador y métricas o factores de desempeño. Esta organización permitió combinar términos relacionados con polinizadores e insectos, modelos de reconocimiento visual y criterios de evaluación del rendimiento. \\
+
+\begingroup
+
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\small
+
+\begin{xltabular}{\textwidth}{
+    >{\raggedright\arraybackslash}p{3.0cm}
+    >{\raggedright\arraybackslash}X
+    >{\raggedright\arraybackslash}p{4.0cm}
+}
+\caption{Palabras clave utilizadas para la estrategia de búsqueda.}
+\label{tab:palabras-clave-busqueda} \\
+
+\hline
+\textbf{Dimensión} &
+\textbf{Palabras clave y sinónimos} &
+\textbf{Relación con la revisión} \\
+\hline
+\endfirsthead
+
+% No se repiten encabezados en las páginas siguientes
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\multicolumn{3}{>{\raggedright\arraybackslash}p{\dimexpr\textwidth-2\tabcolsep\relax}}{
+\normalsize \textit{Nota.} Elaboración propia.
+} \\
+\endlastfoot
+
+Polinizadores e insectos &
+\textit{bee}, \textit{honey bee}, \textit{wild bee}, \textit{bumblebee}, \textit{pollinator}, \textit{hymenoptera}, \textit{insect}, \textit{pollinating insects} &
+Población o grupo biológico de interés \\
+
+Reconocimiento de imágenes &
+\textit{image recognition}, \textit{image classification}, \textit{object detection}, \textit{computer vision}, \textit{automatic recognition}, \textit{image processing} &
+Tareas de visión por computador aplicadas al reconocimiento visual \\
+
+Modelos de aprendizaje profundo &
+\textit{deep learning}, \textit{neural network}, CNN, \textit{vision transformer}, EfficientNet, ResNet, YOLO, \textit{machine learning} &
+Métodos y arquitecturas utilizadas para el reconocimiento de imágenes \\
+
+Métricas y desempeño &
+\textit{metrics}, AUC, \textit{accuracy}, \textit{precision}, \textit{recall}, F1-score, mAP, IoU, FPS, \textit{performance}, \textit{computational cost} &
+Evaluación y comparación del rendimiento de los modelos \\
+
+Conjuntos de datos &
+\textit{bee dataset}, \textit{pollinator dataset}, \textit{insect image dataset} &
+Fuentes de imágenes empleadas para entrenamiento o evaluación \\
+
+\end{xltabular}
+
+\endgroup
+\vspace{-1.0 cm}
+A partir de estas dimensiones, se construyó una cadena de búsqueda en Scopus mediante operadores booleanos. La búsqueda se aplicó en los campos de título, resumen y palabras clave, con el propósito de recuperar estudios relacionados con reconocimiento de imágenes de polinizadores mediante aprendizaje profundo:
+
+\begin{verbatim}
+TITLE-ABS-KEY ( ( "deep learning" OR "neural network*" OR cnn OR 
+"vision transformer" OR "efficientnet" OR "resnet" OR yolo OR 
+"object detection" OR "image classification" OR "machine learning" 
+OR metrics ) AND ( "bee image" OR "honey bee image" OR 
+"wild bee image" OR "bumblebee image" OR "pollinator image" OR 
+"hymenoptera image" OR "insect image dataset" OR "bee dataset" OR 
+"pollinator dataset" OR "insect image classification" OR 
+"bee recognition" OR "insect recognition" OR 
+( "pollinator" AND "image" ) OR ( "bee" AND "image" ) ) ) 
+AND PUBYEAR > 2019 
+AND ( LANGUAGE ( english ) OR LANGUAGE ( spanish ) ) 
+AND ( LIMIT-TO ( OA , "all" ) )
+\end{verbatim}
+
+La estrategia incorpora términos asociados con aprendizaje profundo, redes neuronales, arquitecturas relevantes y tareas de visión por computador, combinados con términos relacionados con imágenes de abejas, polinizadores e insectos. Además, se restringen los resultados a publicaciones en inglés o español, de acceso abierto y publicadas a partir del año 2020.
+
+\section{Criterios de inclusión y exclusión}
+
+Los criterios de inclusión y exclusión se definieron con el propósito de seleccionar estudios pertinentes, recientes y comparables con el objetivo de la revisión sistemática. Estos criterios permitieron delimitar el corpus a investigaciones que emplearan métodos de aprendizaje profundo para el reconocimiento de imágenes de polinizadores, que reportaran métricas cuantitativas de desempeño y que estuvieran disponibles para revisión completa.
+
+La inclusión de estudios publicados desde el año 2020 se justificó por el interés de caracterizar el estado reciente del campo, considerando que las arquitecturas de visión por computador y las técnicas de entrenamiento han evolucionado rápidamente en los últimos años. Asimismo, se restringió la búsqueda a publicaciones en inglés o español debido a la disponibilidad de lectura y análisis dentro del alcance de la investigación. El criterio de acceso abierto se estableció para garantizar la posibilidad de revisar el texto completo y extraer información metodológica de manera verificable.
+
+También se consideró indispensable que los estudios utilizaran imágenes como fuente principal de datos, ya que el enfoque de esta monografía se centra en tareas de visión por computador, como clasificación, detección y segmentación. De igual forma, se exigió que los trabajos aplicaran aprendizaje profundo y reportaran métricas de desempeño, pues estos elementos son necesarios para comparar arquitecturas, evaluar resultados y analizar factores técnicos asociados al rendimiento de los modelos. Los criterios establecidos se presentan en la Tabla~\ref{tab:criterios-inclusion-exclusion}. \\
+
+\begin{table}[H]
+    \centering
+    \caption{Criterios de inclusión y exclusión}
+    \small
+    \label{tab:criterios-inclusion-exclusion}
+    \begin{tabular}{p{6.2cm} p{6.2cm}}
+        \hline
+        \textbf{Criterios de inclusión} & \textbf{Criterios de exclusión} \\
+        \hline
+        
+        Estudios que emplean métodos de aprendizaje profundo. 
+        & Estudios que no emplean métodos de aprendizaje profundo. \\
+        
+        Estudios escritos en inglés o español. 
+        & Estudios escritos en idiomas distintos al inglés o español. \\
+        
+        Estudios que reportan métricas cuantitativas de desempeño. 
+        & Estudios que no reportan métricas de evaluación comparables. \\
+        
+        Estudios con acceso abierto al texto completo. 
+        & Estudios sin acceso abierto o sin disponibilidad de texto completo. \\
+        
+        Estudios enfocados en insectos polinizadores o grupos directamente relacionados. 
+        & Estudios sin enfoque en insectos polinizadores o no relacionados con el monitoreo de polinizadores. \\
+        
+        Estudios que utilizan imágenes para reconocimiento, clasificación, detección o segmentación. 
+        & Estudios que no utilizan imágenes como fuente principal de datos. \\
+        
+        Estudios publicados desde el año 2020. 
+        & Estudios publicados antes del año 2020. \\
+        
+        \hline
+    \end{tabular}
+
+    \caption*{\normalfont\normalsize\textit{Nota.} Elaboración propia.}
+\end{table}
+
+\vspace{-1.0 cm}
+
+\section{Proceso de selección de estudios}
+
+El proceso de selección de estudios se desarrolló de acuerdo con la lógica de las directrices PRISMA, considerando las fases de identificación, eliminación de duplicados, cribado inicial, evaluación de elegibilidad por texto completo e inclusión final. Esta organización permitió documentar de manera transparente la reducción progresiva de registros hasta conformar el corpus definitivo de análisis.
+
+En la fase de identificación se recuperaron 281 registros a partir de la aplicación de la estrategia de búsqueda en Scopus y de los criterios establecidos previamente en la Tabla~\ref{tab:criterios-inclusion-exclusion}. Estos registros constituyeron el conjunto inicial de artículos potencialmente relevantes para la revisión sistemática.
+
+Posteriormente, se realizó la revisión de duplicados. En esta etapa no se detectaron registros repetidos, por lo que los 281 artículos identificados se mantuvieron para el cribado por título, resumen y palabras clave. Este primer filtro permitió evaluar la correspondencia inicial de cada estudio con el tema de investigación, considerando especialmente el uso de imágenes de polinizadores, la aplicación de métodos de aprendizaje profundo, el reporte de métricas de desempeño y la presencia de factores técnicos vinculados con el rendimiento de los modelos.
+
+Como resultado del cribado inicial, se aceptaron 54 artículos y se excluyeron 227 registros que no cumplían suficientemente con el alcance temático o metodológico de la revisión. Los artículos preseleccionados fueron evaluados posteriormente mediante lectura de texto completo, con el fin de determinar su elegibilidad final.
+
+Para la evaluación de texto completo se utilizó una lista de verificación compuesta por cuatro preguntas de elegibilidad, presentadas en la Tabla~\ref{tab:preguntas-elegibilidad}. Cada pregunta fue calificada según el grado de cumplimiento del criterio: \textit{Yes} = 1, \textit{Partial} = 0.5 y \textit{No} = 0. La suma de las cuatro puntuaciones permitió obtener un puntaje total de elegibilidad para cada artículo.
+
+Se estableció un umbral mínimo de 3 puntos para incluir un estudio en la revisión final. Los artículos con puntaje inferior a dicho umbral fueron excluidos por no presentar suficiente pertinencia metodológica o analítica para los objetivos de la investigación. En esta etapa se excluyó 1 artículo, por lo que el corpus final quedó conformado por 53 estudios.
+
+\begin{table}[H]
+    \centering
+    \caption{Preguntas de elegibilidad}
+    \small
+    \label{tab:preguntas-elegibilidad}
+    \begin{tabular}{p{1.8cm} p{11.5cm}}
+        \hline
+        \textbf{Código} & \textbf{Pregunta de elegibilidad} \\
+        \hline
+        
+        Q1 & ¿El estudio utiliza imágenes de polinizadores como base para reconocimiento, clasificación, detección o segmentación? \\
+        
+        Q2 & ¿El estudio aplica métodos de aprendizaje profundo para el reconocimiento de imágenes de polinizadores? \\
+        
+        Q3 & ¿El estudio reporta métricas cuantitativas de desempeño para evaluar el modelo propuesto, tales como \textit{accuracy}, \textit{precision}, \textit{recall}, \textit{F1-score}, \textit{IoU}, \textit{mAP}, \textit{Dice}, \textit{AUC} o \textit{FPS}? \\
+        
+        Q4 & ¿El estudio describe factores técnicos relevantes que influyen en el rendimiento del modelo, tales como transferencia de aprendizaje, aumento de datos o métodos de optimización? \\
+        
+        \hline
+    \end{tabular}
+
+    \caption*{\normalfont\normalsize\textit{Nota.} Elaboración propia.}
+\end{table}
+
+\vspace{-1.0 cm}
+Finalmente, se incluyeron 53 artículos que cumplieron con los criterios de inclusión y alcanzaron el umbral de elegibilidad establecido. Estos estudios constituyen la base documental para la extracción de datos y el análisis descriptivo-comparativo de la revisión sistemática. El PDF \texttt{art0166} fue revisado en texto completo, pero se mantuvo fuera del corpus analítico por corresponder a un artículo de datos cuyo aporte principal era la descripción de un conjunto de imágenes, sin una evaluación de modelos suficientemente comparable para las tablas de síntesis.
+
+\section{Resumen del proceso de selección}
+
+El flujo de selección de estudios se sintetiza en la Figura~\ref{fig:proceso_prisma_polinizadores}, donde se presentan las etapas de identificación, cribado, evaluación de elegibilidad e inclusión final del corpus analizado.
+
+\begin{figure}[H]
+\centering
+\caption{Proceso de selección de estudios basado en PRISMA.}
+\label{fig:proceso_prisma_polinizadores}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    node distance=1cm and 1.5cm,
+    % Estilo de las cajas principales
+    proceso/.style={
+        rectangle, 
+        draw=black, 
+        fill=blue!10, 
+        thick,
+        minimum width=5cm, 
+        minimum height=1.3cm, 
+        align=center,
+        font=\scriptsize
+    },
+    % Estilo de las cajas de exclusión
+    exclusion/.style={
+        rectangle, 
+        draw=black, 
+        fill=blue!5, 
+        thick,
+        minimum width=5cm, 
+        minimum height=1.3cm, 
+        align=center,
+        font=\scriptsize
+    },
+    % Estilo de las etiquetas laterales
+    etiqueta/.style={
+        rectangle, 
+        draw=black, 
+        fill=blue!40, 
+        thick,
+        minimum width=1cm, 
+        minimum height=1.3cm, 
+        rounded corners=5pt,
+        align=center,
+        rotate=90,
+        font=\scriptsize\bfseries,
+        text=black
+    },
+    % Estilo del título superior
+    titulo/.style={
+        rectangle, 
+        rounded corners,
+        draw=black, 
+        fill=orange!50, 
+        thick,
+        minimum width=8cm, 
+        minimum height=0.8cm, 
+        align=center,
+        font=\scriptsize\bfseries
+    },
+    flecha/.style={-{Stealth[length=3mm]}, thick}
+]
+
+% Título superior
+\node[titulo] (titulo) {Identificación de estudios a través de bases de datos y registros};
+
+% Nodos principales del flujo
+\node[proceso, below=1cm of titulo] (ident) {
+    Registros identificados a partir de\\ la base de datos Scopus\\
+    $(n = 281)$
+};
+
+\node[proceso, below=1cm of ident] (cribados) {
+    Registros tras revisión\\ de duplicados\\
+    $(n = 281)$
+};
+
+\node[proceso, below=1.2cm of cribados] (titulos) {
+    Artículos cribados por título,\\ resumen y palabras clave\\
+    $(n = 281)$
+};
+
+\node[proceso, below=1.2cm of titulos] (completos) {
+    Textos completos evaluados\\ para elegibilidad\\
+    $(n = 54)$
+};
+
+\node[proceso, below=1.2cm of completos] (incluidos) {
+    Estudios incluidos en la\\ revisión\\
+    $(n = 53)$
+};
+
+% Nodos de exclusión (lado derecho)
+\node[exclusion, right=2cm of cribados] (duplicados) {
+    Registros duplicados\\ eliminados\\
+    $(n = 0)$
+};
+
+\node[exclusion, right=2cm of titulos] (excluidos1) {
+    Artículos excluidos tras el\\ cribado por título, resumen\\ y palabras clave\\
+    $(n = 227)$
+};
+
+\node[exclusion, right=2cm of completos] (excluidos2) {
+    Artículos excluidos tras\\ evaluación de texto completo\\
+    $(n = 1)$
+};
+
+% Etiquetas laterales izquierdas
+\node[
+    etiqueta,
+    minimum width=1.8cm
+] at ([xshift=-1.2cm]ident.west) {Identificación};
+
+\node[
+    etiqueta,
+    minimum width=6.55cm
+] at ([xshift=-1.2cm]titulos.west) {Cribado};
+
+\node[
+    etiqueta,
+    minimum width=1.6cm
+] at ([xshift=-1.2cm]incluidos.west) {Incluidos};
+
+% Flechas verticales
+\draw[flecha] (ident) -- (cribados);
+\draw[flecha] (cribados) -- (titulos);
+\draw[flecha] (titulos) -- (completos);
+\draw[flecha] (completos) -- (incluidos);
+
+% Flechas horizontales hacia exclusiones
+\draw[flecha] (cribados) -- (duplicados);
+\draw[flecha] (titulos) -- (excluidos1);
+\draw[flecha] (completos) -- (excluidos2);
+
+\end{tikzpicture}%
+}
+
+\vspace{0.2 cm}
+\caption*{\normalfont\normalsize\textit{Nota.} Elaboración propia.}
+\end{figure}
+
+\vspace{-1.0 cm}
+
+\section{Extracción de datos}
+
+Una vez definido el corpus final, se aplica un formulario de extracción de datos estructurado con el fin de registrar de manera homogénea la información relevante de cada estudio. La extracción se orienta a responder de forma directa las preguntas de investigación y a organizar posteriormente la presentación de resultados por categorías temáticas. Las variables extraídas se presentan a continuación:
+
+\begin{itemize}
+    \item \textbf{Modelo o arquitectura de aprendizaje profundo}: se registran las arquitecturas o familias arquitectónicas reportadas en el estudio. Las categorías consideradas incluyen \textit{DenseNet}, \textit{EfficientNet}, \textit{Inception}, \textit{MobileNet}, \textit{ResNet}, \textit{YOLO}, \textit{Faster R-CNN}, \textit{Mask R-CNN} y \textit{Other}.
+    
+    \item \textbf{Tipo de tarea}: se identifica si el estudio aborda una o múltiples tareas de \textit{Classification}, \textit{Detection} o \textit{Segmentation}.
+    
+    \item \textbf{Métricas reportadas}: se registran las métricas de evaluación cuantitativa utilizadas en cada estudio. Entre ellas se consideran \textit{AUC}, \textit{Accuracy}, \textit{Dice}, \textit{F1-score}, \textit{FPS}, \textit{IoU}, \textit{Precision}, \textit{Recall} y \textit{mAP}.
+    
+    \item \textbf{Uso de transferencia de aprendizaje}: se registra si el estudio reporta o no el empleo de \textit{transfer learning}.
+    
+    \item \textbf{Uso de aumento de datos}: se registra si el estudio reporta o no la aplicación de técnicas de \textit{data augmentation}.
+    
+    \item \textbf{Uso de métodos de optimización}: se registra si el estudio reporta explícitamente el uso de un método de optimización durante el entrenamiento.
+\end{itemize}
+\vspace{-0.5 cm}
+
+La codificación de estas variables se realiza a partir de la terminología explícita utilizada por los autores en cada artículo. Cuando un estudio reporta múltiples arquitecturas, métricas o tareas, todas ellas son registradas. 
+
+\section{Análisis de datos}
+
+El análisis de los datos se realiza de manera descriptiva y comparativa, permitiendo identificar tendencias, enfoques predominantes y factores técnicos que influyen en el
+desempeño de los modelos reportados en la literatura. Dado que la investigación se basa en una revisión sistemática de estudios previos, no se aplican pruebas estadísticas inferenciales propias, limitándose el análisis a la comparación de métricas reportadas por los autores con el fin de sintetizar y contrastar los resultados existentes. Para RQ3, la asociación entre factores técnicos y mejor desempeño se interpreta en términos comparativos dentro de bloques metodológicamente semejantes, sin pretender inferencia causal.
+

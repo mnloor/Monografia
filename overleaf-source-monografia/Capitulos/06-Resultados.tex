@@ -1,0 +1,981 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Resultados y discusión}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Los resultados se organizan en función de las preguntas de investigación, de modo que cada una de ellas estructura una parte específica de la síntesis.
+
+Para responder la RQ1, se analizan las arquitecturas y tipos de modelos de aprendizaje profundo reportados con mayor frecuencia, así como su relación con el tipo de tarea abordada. Para responder la RQ2, se identifican y comparan las métricas de evaluación más empleadas en los estudios incluidos. Finalmente, para responder la RQ3, se examinan los factores técnicos descritos en la literatura, particularmente el uso de transferencia de aprendizaje, aumento de datos y métodos de optimización, con el fin de identificar su asociación con niveles superiores de desempeño reportado. En esta monografía, dicha asociación se interpreta a partir de la recurrencia de estos factores en estudios con mejores resultados dentro de bloques metodológicamente comparables.
+
+\section{RQ1. Arquitecturas y tipos de modelos más utilizados}
+
+Para responder la primera pregunta de investigación, primero se identificó el tipo de tarea abordada por los estudios incluidos, debido a que la selección de una arquitectura de aprendizaje profundo depende directamente del problema que se busca resolver. En este sentido, los trabajos revisados fueron organizados según tres tareas principales: detección, clasificación y segmentación. Posteriormente, se analizaron las arquitecturas generales y específicas empleadas en cada estudio, con el fin de reconocer los modelos más frecuentes.
+
+En primer lugar, la Tabla~\ref{tab:rq1-tipos-tarea} presenta la distribución de los estudios según el tipo de tarea abordada. Esta clasificación permite establecer el contexto metodológico desde el cual deben interpretarse las arquitecturas utilizadas, ya que no todos los modelos responden al mismo propósito: algunos se orientan a localizar polinizadores en imágenes, otros a clasificarlos por especie o grupo, y otros a delimitar regiones específicas mediante segmentación.
+
+
+\begingroup
+\newcommand{\marca}{\(\times\)}
+
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\tiny
+
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}X *{3}{>{\centering\arraybackslash}p{2.5cm}}}
+\caption{Tipos de tarea reportados por estudio.}
+\label{tab:rq1-tipos-tarea} \\
+
+\hline
+\textbf{Estudio} &
+\textbf{Detección} &
+\textbf{Clasificación} &
+\textbf{Segmentación} \\
+\hline
+\endfirsthead
+
+% No se repiten encabezados en las páginas siguientes
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\textbf{Total} & \textbf{37} & \textbf{29} & \textbf{10} \\
+\hline
+\\
+\multicolumn{4}{>{\raggedright\arraybackslash}p{\dimexpr\textwidth-2\tabcolsep\relax}}{
+\normalsize \textit{Nota.} Elaboración propia.
+} \\
+\endlastfoot
+
+\cite{alves2020detection} & \marca & \marca & \marca \\
+\cite{nizam2020segmentation} & \marca &  & \marca \\
+\cite{dembski2020weighted} & \marca & \marca &  \\
+\cite{zhang2021concatenated} &  & \marca &  \\
+\cite{braga2021intelligent} & \marca & \marca &  \\
+\cite{spiesman2021bumblebee} &  & \marca &  \\
+\cite{kelley2021sources} &  & \marca &  \\
+\cite{bozek2021markerless} & \marca &  & \marca \\
+\cite{voudiotis2021proposed} & \marca &  &  \\
+\cite{voudiotis2022beehive} & \marca &  &  \\
+\cite{suzukiohno2022increases} &  & \marca &  \\
+\cite{rodrigues2022deepwings} & \marca & \marca & \marca \\
+\cite{klasen2022species} &  & \marca &  \\
+\cite{balmaki2022modern} &  & \marca &  \\
+\cite{bjerge2022tracking} & \marca & \marca &  \\
+\cite{garcia2022software} &  & \marca &  \\
+\cite{kulyukin2023accuracy} & \marca &  &  \\
+\cite{bjerge2023accurate} & \marca & \marca &  \\
+\cite{gernat2023monitoring} & \marca &  &  \\
+\cite{yoo2023beenet} & \marca & \marca &  \\
+\cite{stiemer2023mbt3d} & \marca &  &  \\
+\cite{bjerge2023object} & \marca &  &  \\
+\cite{stark2023yolo} & \marca & \marca &  \\
+\cite{leocadio2024brazilian} & \marca &  &  \\
+\cite{lei2024out} & \marca &  &  \\
+\cite{bjerge2024pipeline} & \marca & \marca & \marca \\
+\cite{rohafauzi2024review} & \marca &  &  \\
+\cite{spiesman2024identifying} &  & \marca &  \\
+\cite{liang2024developing} & \marca &  &  \\
+\cite{santiagoplaza2024identification} &  & \marca &  \\
+\cite{nguyen2024improving} & \marca & \marca &  \\
+\cite{kongsilp2024individual} & \marca &  & \marca \\
+\cite{sledevic2024keypoint} & \marca &  &  \\
+\cite{sledevic2024labeled} & \marca &  & \marca \\
+\cite{rozenbaum2024machine} & \marca &  &  \\
+\cite{wittmann2024monitoring} & \marca &  &  \\
+\cite{ho2024motion} & \marca &  &  \\
+\cite{kriouile2024nested} & \marca &  & \marca \\
+\cite{padubidri2024hive} & \marca &  &  \\
+\cite{dadgostar2025subspecies} &  & \marca &  \\
+\cite{ostwald2025climate} &  &  & \marca \\
+\cite{taniguchi2025development} & \marca & \marca &  \\
+\cite{lee2025enhancing} & \marca &  &  \\
+\cite{alex2025pollinator} & \marca &  &  \\
+\cite{calisan2025evaluation} & \marca & \marca &  \\
+\cite{srinivas2025south} &  & \marca &  \\
+\cite{copeland2025larval} &  & \marca &  \\
+\cite{oliveira2025quantization} &  & \marca &  \\
+\cite{chiranjeevi2025insectnet} &  & \marca &  \\
+\cite{gomezjaime2025paint} & \marca & \marca &  \\
+\cite{stefan2025successes} & \marca & \marca &  \\
+\cite{stark2025pollinators} &  & \marca &  \\
+\cite{sledevic2025visual} & \marca &  & \marca \\
+
+\end{xltabular}
+
+\endgroup
+
+\normalsize
+
+\vspace{-1.0 cm}
+A partir de la identificación individual de las tareas abordadas por cada estudio, se sintetizó la frecuencia agregada de cada tipo de tarea dentro del corpus analizado. Las categorías no son mutuamente excluyentes, ya que un mismo estudio puede abordar simultáneamente detección, clasificación y segmentación. Por ello, la Figura~\ref{fig:rq1-tipos-tarea-frecuencia} presenta las ocurrencias de cada tarea y su porcentaje respecto del total de estudios incluidos. \\
+
+\begin{figure}[H]
+    \centering
+    \caption{Frecuencia de tipos de tarea reportados en los estudios analizados.}
+    \label{fig:rq1-tipos-tarea-frecuencia}
+
+    \begin{tikzpicture}[
+        font=\normalfont\normalsize,
+        barra/.style={
+            draw=black!60,
+            line width=0.25pt
+        }
+    ]
+
+    % Parámetros generales
+    \def\xinicio{3.9}
+    \def\escala{0.19}
+    \def\alto{0.22}
+    \def\sep{0.75}
+
+    % Encabezado
+    \node[anchor=east, font=\normalfont\normalsize] 
+        at (\xinicio-0.15,0.65) {Tipo de tarea};
+
+    % Barras: Tarea / Frecuencia / Porcentaje / Color / Índice
+    \foreach \nombre/\valor/\porcentaje/\relleno/\i in {
+        {Detección}/37/69.8/{blue!45!gray!35}/0,
+        {Clasificación}/29/54.7/{teal!40!gray!35}/1,
+        {Segmentación}/10/18.9/{violet!35!gray!30}/2
+    }{
+        \pgfmathsetmacro{\y}{-\i*\sep}
+        \pgfmathsetmacro{\ancho}{\valor*\escala}
+
+        % Nombre de la tarea
+        \node[anchor=east, font=\normalfont\normalsize] 
+            at (\xinicio-0.15,\y) {\nombre};
+
+        % Barra
+        \filldraw[barra, fill=\relleno]
+            (\xinicio,\y-\alto/2)
+            rectangle
+            ({\xinicio+\ancho},\y+\alto/2);
+
+        % Frecuencia y porcentaje
+        \node[anchor=west, font=\normalfont\normalsize] 
+            at ({\xinicio+\ancho+0.15},\y) 
+            {\valor\;(\porcentaje\%)};
+    }
+
+    % Eje horizontal
+    \pgfmathsetmacro{\yeje}{-2*\sep-0.45}
+    \draw[black!70] (\xinicio,\yeje) -- ({\xinicio+40*\escala},\yeje);
+
+    % Marcas del eje
+    \foreach \x in {0,5,10,15,20,25,30,35,40}{
+        \pgfmathsetmacro{\xpos}{\xinicio+\x*\escala}
+        \draw[black!70] (\xpos,\yeje) -- (\xpos,\yeje-0.06);
+        \node[anchor=north, font=\normalfont\normalsize] 
+            at (\xpos,\yeje-0.08) {\x};
+    }
+
+    % Línea vertical de origen
+    \draw[black!70] (\xinicio,0.35) -- (\xinicio,\yeje);
+
+    % Etiqueta del eje
+    \node[font=\normalfont\normalsize] 
+        at ({\xinicio+20*\escala},\yeje-0.85) {Frecuencia};
+
+    \end{tikzpicture}
+    \vspace{-0.20 cm}
+    \begin{flushleft}
+    \normalfont\normalsize\textit{Nota.} Elaboración propia.
+    \end{flushleft}
+\end{figure}
+
+\vspace{-1.0 cm}
+La tarea más frecuente fue la detección, presente en 37 estudios (69.8\%), seguida de la clasificación con 29 estudios (54.7\%) y, en menor medida, la segmentación con 10 estudios (18.9\%). Este resultado indica que la literatura reciente se ha concentrado principalmente en localizar polinizadores dentro de imágenes, lo cual explica la alta presencia posterior de arquitecturas orientadas a detección de objetos.
+
+Una vez establecido el tipo de tarea predominante, se analizaron las arquitecturas generales y específicas de aprendizaje profundo reportadas en los 53 estudios incluidos. En la Tabla \ref{tab:rq1-arquitecturas-general} se indica la presencia de los modelos en cada estudio analizado.\\
+
+\begingroup
+\newcommand{\marca}{\(\times\)}
+
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\tiny
+
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}X *{9}{>{\centering\arraybackslash}p{1.3cm}}}
+\caption{Arquitecturas generales de aprendizaje profundo reportadas por estudio.}
+\label{tab:rq1-arquitecturas-general} \\
+
+\hline
+\textbf{Estudio} &
+\makecell{\textbf{Efficient}\\\textbf{Net}} &
+\makecell{\textbf{Mobile}\\\textbf{Net}} &
+\makecell{\textbf{Inception}} &
+\makecell{\textbf{ResNet}} &
+\makecell{\textbf{DenseNet}} &
+\textbf{YOLO} &
+\makecell{\textbf{Faster}\\\textbf{R-CNN}} &
+\makecell{\textbf{Mask}\\\textbf{R-CNN}} &
+\textbf{Otros} \\
+\hline
+\endfirsthead
+
+% No se repiten encabezados en las páginas siguientes
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\textbf{Total} & \textbf{5} & \textbf{8} & \textbf{4} & \textbf{12} & \textbf{2} & \textbf{26} & \textbf{8} & \textbf{4} & \textbf{25} \\
+\hline
+\\
+\multicolumn{10}{>{\raggedright\arraybackslash}p{\dimexpr\textwidth-2\tabcolsep\relax}}{
+\normalsize \textit{Nota.} Elaboración propia.
+} \\
+\endlastfoot
+
+\cite{alves2020detection} & \marca &  & \marca & \marca & \marca &  &  &  & \marca \\
+\cite{nizam2020segmentation} &  &  &  &  &  &  & \marca & \marca &  \\
+\cite{dembski2020weighted} &  &  &  &  &  &  &  &  & \marca \\
+\cite{zhang2021concatenated} &  & \marca &  &  & \marca &  &  &  & \marca \\
+\cite{braga2021intelligent} &  &  &  &  &  &  &  &  & \marca \\
+\cite{spiesman2021bumblebee} &  &  & \marca &  & \marca &  &  &  & \marca \\
+\cite{kelley2021sources} &  &  &  & \marca & \marca & \marca & \marca &  &  \\
+\cite{bozek2021markerless} &  &  &  &  &  &  &  &  & \marca \\
+\cite{voudiotis2021proposed} &  &  & \marca & \marca &  &  & \marca &  & \marca \\
+\cite{voudiotis2022beehive} &  &  &  &  &  & \marca &  &  & \marca \\
+\cite{suzukiohno2022increases} &  &  &  &  &  &  &  &  & \marca \\
+\cite{rodrigues2022deepwings} &  &  &  & \marca &  &  &  &  & \marca \\
+\cite{klasen2022species} &  &  &  &  &  &  &  &  & \marca \\
+\cite{balmaki2022modern} &  &  &  &  &  &  &  &  & \marca \\
+\cite{bjerge2022tracking} &  &  &  &  &  & \marca &  &  & \marca \\
+\cite{garcia2022software} &  &  &  &  &  &  &  &  & \marca \\
+\cite{kulyukin2023accuracy} &  &  &  &  &  & \marca &  &  &  \\
+\cite{bjerge2023accurate} &  &  &  &  &  & \marca &  &  &  \\
+\cite{gernat2023monitoring} &  &  &  &  &  &  &  &  & \marca \\
+\cite{yoo2023beenet} &  &  &  &  & \marca &  &  &  & \marca \\
+\cite{stiemer2023mbt3d} &  &  &  &  &  & \marca & \marca &  & \marca \\
+\cite{bjerge2023object} &  &  &  &  &  & \marca & \marca &  &  \\
+\cite{stark2023yolo} &  &  &  &  &  & \marca &  &  &  \\
+\cite{leocadio2024brazilian} &  &  &  &  &  & \marca &  &  &  \\
+\cite{lei2024out} &  &  &  &  &  & \marca &  &  &  \\
+\cite{bjerge2024pipeline} &  & \marca &  &  &  & \marca &  &  & \marca \\
+\cite{rohafauzi2024review} & \marca &  &  &  &  & \marca &  &  &  \\
+\cite{spiesman2024identifying} &  & \marca &  &  &  &  &  &  &  \\
+\cite{liang2024developing} &  &  & \marca & \marca &  & \marca &  &  & \marca \\
+\cite{santiagoplaza2024identification} &  &  &  &  & \marca &  &  &  &  \\
+\cite{nguyen2024improving} &  &  &  &  &  & \marca & \marca &  &  \\
+\cite{kongsilp2024individual} &  &  &  &  & \marca &  &  & \marca &  \\
+\cite{sledevic2024keypoint} &  &  &  &  &  & \marca &  &  &  \\
+\cite{sledevic2024labeled} &  &  &  &  &  & \marca &  &  &  \\
+\cite{rozenbaum2024machine} &  &  &  &  &  & \marca &  &  &  \\
+\cite{wittmann2024monitoring} &  &  &  &  &  & \marca &  &  &  \\
+\cite{ho2024motion} &  &  &  &  &  & \marca & \marca & \marca & \marca \\
+\cite{kriouile2024nested} &  &  &  &  & \marca & \marca & \marca & \marca &  \\
+\cite{padubidri2024hive} &  &  &  &  &  &  &  &  & \marca \\
+\cite{dadgostar2025subspecies} &  &  &  &  & \marca &  &  &  &  \\
+\cite{ostwald2025climate} &  &  &  &  &  &  &  &  & \marca \\
+\cite{taniguchi2025development} &  &  &  &  &  & \marca &  &  & \marca \\
+\cite{lee2025enhancing} &  &  &  &  &  & \marca &  &  &  \\
+\cite{alex2025pollinator} &  &  &  &  &  & \marca &  &  &  \\
+\cite{calisan2025evaluation} &  &  &  &  & \marca &  &  &  &  \\
+\cite{srinivas2025south} &  &  &  & \marca &  &  &  &  &  \\
+\cite{copeland2025larval} &  &  &  &  & \marca &  &  &  &  \\
+\cite{oliveira2025quantization} &  & \marca &  & \marca &  &  &  &  & \marca \\
+\cite{chiranjeevi2025insectnet} &  &  &  &  &  & \marca &  &  & \marca \\
+\cite{gomezjaime2025paint} &  &  &  &  &  & \marca &  &  &  \\
+\cite{stefan2025successes} &  &  &  &  &  & \marca &  &  &  \\
+\cite{stark2025pollinators} &  & \marca &  & \marca & \marca &  &  &  &  \\
+\cite{sledevic2025visual} &  &  &  &  &  & \marca &  &  &  \\
+
+\end{xltabular}
+
+\endgroup
+
+\normalsize
+
+\vspace{-1.0 cm}
+
+De la misma manera que en la clasificación de estudios por tipo de tarea, las frecuencias reportadas en la Figura~\ref{fig:rq1-arquitecturas-frecuencia} representan ocurrencias de uso y no categorías mutuamente excluyentes. Por tanto, los porcentajes deben interpretarse como la proporción de estudios en los que se identificó cada arquitectura respecto del total de artículos analizados. \\ 
+
+
+\begin{figure}[H]
+    \centering
+    \caption{Frecuencia de arquitecturas de aprendizaje profundo reportadas en los estudios analizados.}
+    \label{fig:rq1-arquitecturas-frecuencia}
+
+    \begin{tikzpicture}[
+        font=\normalfont\normalsize,
+        barra/.style={
+            draw=black!60,
+            line width=0.25pt
+        }
+    ]
+
+    % Parámetros generales
+    \def\xinicio{3.4}
+    \def\escala{0.27}
+    \def\alto{0.22}
+    \def\sep{0.58}
+
+    % Encabezados
+    \node[anchor=east, font=\normalfont\normalsize] 
+        at (\xinicio-0.15,0.65) {Arquitectura};
+
+    % Barras: Arquitectura / Frecuencia / Porcentaje / Color / Índice
+    \foreach \nombre/\valor/\porcentaje/\relleno/\i in {
+        {YOLO}/26/49.1/{blue!45!gray!35}/0,
+        {Otros}/25/47.2/{gray!45}/1,
+        {ResNet}/12/22.6/{teal!40!gray!35}/2,
+        {Faster R-CNN}/8/15.1/{violet!35!gray!30}/3,
+        {MobileNet}/8/15.1/{cyan!35!gray!35}/4,
+        {EfficientNet}/5/9.4/{orange!35!gray!30}/5,
+        {Inception}/4/7.5/{brown!35!gray!25}/6,
+        {Mask R-CNN}/4/7.5/{purple!30!gray!30}/7,
+        {DenseNet}/2/3.8/{black!25}/8
+    }{
+        \pgfmathsetmacro{\y}{-\i*\sep}
+        \pgfmathsetmacro{\ancho}{\valor*\escala}
+
+        % Nombre de la arquitectura
+        \node[anchor=east, font=\normalfont\normalsize] 
+            at (\xinicio-0.15,\y) {\nombre};
+
+        % Barra
+        \filldraw[barra, fill=\relleno]
+            (\xinicio,\y-\alto/2)
+            rectangle
+            ({\xinicio+\ancho},\y+\alto/2);
+
+        % Frecuencia y porcentaje
+        \node[anchor=west, font=\normalfont\normalsize] 
+            at ({\xinicio+\ancho+0.15},\y) 
+            {\valor\;(\porcentaje\%)};
+    }
+
+    % Eje horizontal
+    \pgfmathsetmacro{\yeje}{-8*\sep-0.45}
+    \draw[black!70] (\xinicio,\yeje) -- ({\xinicio+30*\escala},\yeje);
+
+    % Marcas del eje
+    \foreach \x in {0,5,10,15,20,25,30}{
+        \pgfmathsetmacro{\xpos}{\xinicio+\x*\escala}
+        \draw[black!70] (\xpos,\yeje) -- (\xpos,\yeje-0.06);
+        \node[anchor=north, font=\normalfont\normalsize] 
+            at (\xpos,\yeje-0.08) {\x};
+    }
+
+    % Línea vertical de origen
+    \draw[black!70] (\xinicio,0.35) -- (\xinicio,\yeje);
+
+    % Etiqueta del eje
+    \node[font=\normalfont\normalsize] 
+        at ({\xinicio+15*\escala},\yeje-0.85) {Frecuencia};
+
+    \end{tikzpicture}
+    \vspace{-0.20 cm}
+    \begin{flushleft}
+    \normalfont\normalsize\textit{Nota.} Elaboración propia.
+    \end{flushleft}
+\end{figure}
+
+\vspace{-1.0 cm}
+En la Figura~\ref{fig:rq1-arquitecturas-frecuencia} se observa un predominio claro de la familia YOLO, presente en 26 estudios (49.1\% del corpus). En segundo lugar se ubica el grupo de otras arquitecturas con 25 estudios (47.2\%), seguido de ResNet con 12 estudios (22.6\%). Las arquitecturas Faster R-CNN y MobileNet aparecen en 8 estudios cada una (15.1\%), mientras que EfficientNet se identifica en 5 estudios (9.4\%). Inception y Mask R-CNN se reportan en 4 estudios cada una (7.5\%) y DenseNet en 2 estudios (3.8\%).
+
+En relación con el predominio de la detección identificado previamente en la distribución de tareas, la frecuencia de arquitecturas confirma una correspondencia metodológica entre el tipo de problema abordado y los modelos seleccionados, especialmente en variantes de YOLO, mientras que arquitecturas clásicamente asociadas a clasificación profunda, como EfficientNet, MobileNet o ResNet, aparecen con una presencia relevante, aunque menor, dentro del corpus revisado.
+
+Sin embargo, no es suficiente con reportar las principales familias de arquitecturas; por ello se establece qué modelos específicos aparecen con más frecuencia. En la Tabla \ref{tab:rq1-arquitecturas-especificas} se determina la frecuencia de las arquitecturas en los diferentes estudios. \\
+
+\begingroup
+
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\scriptsize
+
+\begin{xltabular}{\textwidth}{
+    >{\raggedright\arraybackslash}X
+    >{\centering\arraybackslash}p{1.5cm}
+    >{\centering\arraybackslash}p{1.8cm}
+    >{\raggedright\arraybackslash}X
+    >{\centering\arraybackslash}p{1.5cm}
+    >{\centering\arraybackslash}p{1.8cm}
+}
+\caption{Arquitecturas específicas reportadas en los estudios incluidos.}
+\label{tab:rq1-arquitecturas-especificas} \\
+
+\hline
+\textbf{Arquitectura específica} &
+\textbf{Frecuencia} &
+\textbf{Porcentaje (\%)} &
+\textbf{Arquitectura específica} &
+\textbf{Frecuencia} &
+\textbf{Porcentaje (\%)} \\
+\hline
+\endfirsthead
+
+% No se repiten encabezados en las páginas siguientes
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\multicolumn{6}{>{\raggedright\arraybackslash}p{\dimexpr\textwidth-2\tabcolsep\relax}}{
+\normalsize \textit{Nota.} Elaboración propia.
+} \\
+\endlastfoot
+
+YOLO & 16 & 30.2 & DenseNet & 1 & 1.9 \\
+YOLOv5 & 8 & 15.1 & DenseNet201 & 1 & 1.9 \\
+Faster R-CNN & 7 & 13.2 & EfficientNet & 1 & 1.9 \\
+ResNet & 7 & 13.2 & EfficientNetB0 & 1 & 1.9 \\
+CNN & 4 & 7.5 & EfficientNetB1 & 1 & 1.9 \\
+Mask R-CNN & 4 & 7.5 & EfficientNetV2L & 1 & 1.9 \\
+MobileNetV2 & 4 & 7.5 & GoogLeNet & 1 & 1.9 \\
+SSD & 4 & 7.5 & InsectNet & 1 & 1.9 \\
+YOLOv8 & 4 & 7.5 & Keypoint detector & 1 & 1.9 \\
+InceptionV3 & 3 & 5.7 & MnasNet & 1 & 1.9 \\
+ResNet50 & 3 & 5.7 & MnasNet0\_5 & 1 & 1.9 \\
+U-Net & 3 & 5.7 & MnasNet1\_3 & 1 & 1.9 \\
+VGG & 3 & 5.7 & Pose estimation & 1 & 1.9 \\
+YOLOv7tiny & 3 & 5.7 & RegNetX400MF & 1 & 1.9 \\
+EfficientNetB4 & 2 & 3.8 & RegNetY1\_6GF & 1 & 1.9 \\
+Faster R-CNN-InceptionV2 & 2 & 3.8 & RegNetY400MF & 1 & 1.9 \\
+MobileNet & 2 & 3.8 & RegNetY800MF & 1 & 1.9 \\
+MobileNetV3 & 2 & 3.8 & ResNet18 & 1 & 1.9 \\
+ResNet101 & 2 & 3.8 & RetinaNet & 1 & 1.9 \\
+Transformer & 2 & 3.8 & SSD-InceptionV2 & 1 & 1.9 \\
+VGG16 & 2 & 3.8 & SSD-MobileNetV1 & 1 & 1.9 \\
+Xception & 2 & 3.8 & SSD-MobileNetV2 & 1 & 1.9 \\
+YOLOv3 & 2 & 3.8 & Swarm-engine & 1 & 1.9 \\
+YOLOv5nano & 2 & 3.8 & VGG11 & 1 & 1.9 \\
+YOLOv5small & 2 & 3.8 & VGG19 & 1 & 1.9 \\
+AlexNet & 1 & 1.9 & Wide ResNet & 1 & 1.9 \\
+CAMNN & 1 & 1.9 & YOLOv4 & 1 & 1.9 \\
+DNN-CNN & 1 & 1.9 & YOLOv4Tiny & 1 & 1.9 \\
+DeepLabv3 & 1 & 1.9 & YOLOv5m & 1 & 1.9 \\
+DeepWings & 1 & 1.9 & YOLOv5s & 1 & 1.9 \\
+
+\end{xltabular}
+
+\endgroup
+
+\vspace{-1.0 cm}
+Entre las arquitecturas específicas, YOLO fue la más reportada, seguida por YOLOv5, Faster R-CNN y ResNet, lo que confirma el predominio de enfoques orientados a detección y clasificación. Además, la presencia de múltiples variantes de una misma familia, especialmente en YOLO, ResNet y MobileNet, sugiere que la literatura no solo se concentra en arquitecturas generales, sino también en versiones adaptadas para mejorar el desempeño según la tarea y el contexto de aplicación.
+
+
+
+\section{RQ2. Métricas de evaluación más reportadas}
+
+Para responder la segunda pregunta de investigación, se identificaron las métricas de evaluación empleadas en los estudios incluidos, con el fin de reconocer cuáles son los criterios más utilizados para valorar el desempeño de los modelos de aprendizaje profundo aplicados al reconocimiento de polinizadores. La Tabla \ref{tab:rq2-metricas-general} indica las métricas reportadas por estudio.  \\
+
+\begingroup
+\newcommand{\marca}{\(\times\)}
+
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\tiny
+
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}X *{9}{>{\centering\arraybackslash}p{1.30cm}}}
+\caption{Métricas de evaluación reportadas por estudio.}
+\label{tab:rq2-metricas-general} \\
+
+\hline
+\textbf{Estudio} &
+\makecell{\textbf{Exactitud}} &
+\makecell{\textbf{Precisión}} &
+\makecell{\textbf{Recall}} &
+\textbf{mAP} &
+\makecell{\textbf{F1}} &
+\textbf{IoU} &
+\textbf{FPS} &
+\textbf{AUC} &
+\textbf{Dice} \\
+\hline
+\endfirsthead
+
+% No se repiten encabezados en las páginas siguientes
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\textbf{Total} & \textbf{48} & \textbf{42} & \textbf{32} & \textbf{29} & \textbf{25} & \textbf{23} & \textbf{21} & \textbf{6} & \textbf{1} \\
+\hline
+\\
+\multicolumn{10}{>{\raggedright\arraybackslash}p{\dimexpr\textwidth-2\tabcolsep\relax}}{
+\normalsize \textit{Nota.} Elaboración propia.
+} \\
+\endlastfoot
+
+\cite{alves2020detection} & \marca & \marca & \marca &  & \marca &  &  &  &  \\
+\cite{nizam2020segmentation} & \marca &  &  & \marca &  &  & \marca &  &  \\
+\cite{dembski2020weighted} &  & \marca & \marca &  &  & \marca &  &  &  \\
+\cite{zhang2021concatenated} & \marca & \marca &  & \marca &  &  &  & \marca &  \\
+\cite{braga2021intelligent} & \marca & \marca & \marca &  & \marca & \marca & \marca &  &  \\
+\cite{spiesman2021bumblebee} & \marca & \marca & \marca &  &  &  &  &  &  \\
+\cite{kelley2021sources} & \marca & \marca &  &  &  &  &  &  &  \\
+\cite{bozek2021markerless} & \marca &  &  & \marca &  &  & \marca &  &  \\
+\cite{voudiotis2021proposed} & \marca &  &  &  &  & \marca &  &  &  \\
+\cite{voudiotis2022beehive} & \marca & \marca & \marca & \marca & \marca & \marca &  &  &  \\
+\cite{suzukiohno2022increases} & \marca & \marca & \marca &  & \marca &  &  &  &  \\
+\cite{rodrigues2022deepwings} & \marca & \marca &  & \marca &  &  &  &  &  \\
+\cite{klasen2022species} & \marca &  &  &  &  &  &  &  &  \\
+\cite{balmaki2022modern} & \marca &  & \marca &  &  &  &  &  &  \\
+\cite{bjerge2022tracking} & \marca & \marca & \marca & \marca &  & \marca & \marca &  &  \\
+\cite{garcia2022software} & \marca &  &  &  &  &  &  &  &  \\
+\cite{kulyukin2023accuracy} & \marca & \marca &  &  & \marca & \marca & \marca &  &  \\
+\cite{bjerge2023accurate} & \marca & \marca & \marca & \marca & \marca & \marca & \marca &  &  \\
+\cite{gernat2023monitoring} &  &  & \marca & \marca & \marca &  &  &  &  \\
+\cite{yoo2023beenet} & \marca & \marca & \marca & \marca & \marca &  &  &  &  \\
+\cite{stiemer2023mbt3d} & \marca & \marca &  & \marca & \marca & \marca & \marca &  &  \\
+\cite{bjerge2023object} & \marca & \marca & \marca &  & \marca & \marca & \marca &  &  \\
+\cite{stark2023yolo} & \marca & \marca & \marca & \marca &  & \marca &  &  &  \\
+\cite{leocadio2024brazilian} &  & \marca &  &  &  &  & \marca &  &  \\
+\cite{lei2024out} & \marca & \marca & \marca & \marca & \marca & \marca & \marca &  &  \\
+\cite{bjerge2024pipeline} & \marca & \marca &  & \marca & \marca &  &  & \marca &  \\
+\cite{rohafauzi2024review} & \marca & \marca &  &  &  &  &  &  &  \\
+\cite{spiesman2024identifying} & \marca & \marca & \marca & \marca & \marca &  &  &  &  \\
+\cite{liang2024developing} & \marca & \marca & \marca & \marca & \marca &  & \marca &  &  \\
+\cite{santiagoplaza2024identification} & \marca &  &  &  &  &  & \marca &  &  \\
+\cite{nguyen2024improving} & \marca & \marca & \marca & \marca & \marca &  & \marca &  &  \\
+\cite{kongsilp2024individual} & \marca & \marca & \marca & \marca &  & \marca & \marca &  &  \\
+\cite{sledevic2024keypoint} & \marca & \marca & \marca & \marca &  & \marca & \marca &  &  \\
+\cite{sledevic2024labeled} &  &  &  &  &  &  & \marca &  &  \\
+\cite{rozenbaum2024machine} & \marca & \marca &  & \marca &  & \marca & \marca &  &  \\
+\cite{wittmann2024monitoring} & \marca & \marca & \marca & \marca &  &  & \marca &  &  \\
+\cite{ho2024motion} & \marca & \marca &  & \marca &  & \marca &  &  &  \\
+\cite{kriouile2024nested} & \marca & \marca & \marca & \marca &  & \marca &  &  &  \\
+\cite{padubidri2024hive} &  & \marca &  &  &  & \marca &  &  &  \\
+\cite{dadgostar2025subspecies} & \marca & \marca & \marca & \marca & \marca &  &  & \marca &  \\
+\cite{ostwald2025climate} & \marca & \marca & \marca &  & \marca & \marca &  &  & \marca \\
+\cite{taniguchi2025development} & \marca & \marca & \marca &  & \marca & \marca &  & \marca &  \\
+\cite{lee2025enhancing} & \marca & \marca & \marca & \marca & \marca & \marca &  &  &  \\
+\cite{alex2025pollinator} & \marca & \marca & \marca & \marca &  & \marca & \marca &  &  \\
+\cite{calisan2025evaluation} & \marca & \marca & \marca & \marca & \marca &  &  &  &  \\
+\cite{srinivas2025south} & \marca & \marca & \marca &  & \marca &  &  &  &  \\
+\cite{copeland2025larval} & \marca & \marca & \marca &  & \marca &  &  &  &  \\
+\cite{oliveira2025quantization} & \marca & \marca & \marca & \marca & \marca &  &  & \marca &  \\
+\cite{chiranjeevi2025insectnet} & \marca &  &  &  &  &  &  &  &  \\
+\cite{gomezjaime2025paint} & \marca & \marca &  & \marca &  & \marca &  &  &  \\
+\cite{stefan2025successes} & \marca & \marca & \marca &  & \marca & \marca & \marca & \marca &  \\
+\cite{stark2025pollinators} & \marca &  &  &  &  &  &  &  &  \\
+\cite{sledevic2025visual} & \marca & \marca & \marca & \marca & \marca &  & \marca &  &  \\
+
+\end{xltabular}
+
+\endgroup
+
+\normalsize
+
+\vspace{-1.0 cm}
+A partir del registro individual presentado en la Tabla~\ref{tab:rq2-metricas-general}, se sintetizaron las frecuencias generales de uso de cada métrica con el propósito de identificar los criterios de evaluación predominantes en los estudios analizados, como se indica en la Figura ~\ref{fig:rq2-metricas-frecuencia}. \\
+
+\begin{figure}[H]
+    \centering
+    \caption{Frecuencia de métricas de evaluación reportadas en los estudios analizados.}
+    \label{fig:rq2-metricas-frecuencia}
+
+    \begin{tikzpicture}[
+        font=\normalfont\normalsize,
+        barra/.style={
+            draw=black!60,
+            line width=0.25pt
+        }
+    ]
+
+    % Parámetros generales
+    \def\xinicio{3.6}
+    \def\escala{0.16}
+    \def\alto{0.22}
+    \def\sep{0.58}
+
+    % Encabezado
+    \node[anchor=east, font=\normalfont\normalsize] 
+        at (\xinicio-0.15,0.65) {Métrica};
+
+    % Barras: Métrica / Frecuencia / Porcentaje / Color / Índice
+    \foreach \nombre/\valor/\porcentaje/\relleno/\i in {
+        {Exactitud}/48/90.6/{blue!45!gray!35}/0,
+        {Precisión}/42/79.2/{teal!40!gray!35}/1,
+        {Sensibilidad}/32/60.4/{cyan!35!gray!35}/2,
+        {mAP}/29/54.7/{violet!35!gray!30}/3,
+        {Medida F1}/25/47.2/{orange!35!gray!30}/4,
+        {IoU}/23/43.4/{purple!30!gray!30}/5,
+        {FPS}/21/39.6/{brown!35!gray!25}/6,
+        {AUC}/6/11.3/{gray!45}/7,
+        {Dice}/1/1.9/{black!25}/8
+    }{
+        \pgfmathsetmacro{\y}{-\i*\sep}
+        \pgfmathsetmacro{\ancho}{\valor*\escala}
+
+        % Nombre de la métrica
+        \node[anchor=east, font=\normalfont\normalsize] 
+            at (\xinicio-0.15,\y) {\nombre};
+
+        % Barra
+        \filldraw[barra, fill=\relleno]
+            (\xinicio,\y-\alto/2)
+            rectangle
+            ({\xinicio+\ancho},\y+\alto/2);
+
+        % Frecuencia y porcentaje
+        \node[anchor=west, font=\normalfont\normalsize] 
+            at ({\xinicio+\ancho+0.15},\y) 
+            {\valor\;(\porcentaje\%)};
+    }
+
+    % Eje horizontal
+    \pgfmathsetmacro{\yeje}{-8*\sep-0.45}
+    \draw[black!70] (\xinicio,\yeje) -- ({\xinicio+50*\escala},\yeje);
+
+    % Marcas del eje
+    \foreach \x in {0,10,20,30,40,50}{
+        \pgfmathsetmacro{\xpos}{\xinicio+\x*\escala}
+        \draw[black!70] (\xpos,\yeje) -- (\xpos,\yeje-0.06);
+        \node[anchor=north, font=\normalfont\normalsize] 
+            at (\xpos,\yeje-0.08) {\x};
+    }
+
+    % Línea vertical de origen
+    \draw[black!70] (\xinicio,0.35) -- (\xinicio,\yeje);
+
+    % Etiqueta del eje
+    \node[font=\normalfont\normalsize] 
+        at ({\xinicio+25*\escala},\yeje-0.85) {Frecuencia};
+
+    \end{tikzpicture}
+    \vspace{-0.20 cm}
+    \begin{flushleft}
+    \normalfont\normalsize\textit{Nota.} Elaboración propia.
+    \end{flushleft}
+\end{figure}
+
+\vspace{-1.0 cm}
+
+En la Figura~\ref{fig:rq2-metricas-frecuencia} se observa que la métrica más reportada es la exactitud, presente en 48 estudios (90.6\%), seguida de precisión con 42 estudios (79.2\%) y sensibilidad con 32 estudios (60.4\%). Entre las métricas más vinculadas a detección destaca mAP, reportada en 29 estudios (54.7\%), mientras que IoU aparece en 23 estudios (43.4\%) y FPS en 21 estudios (39.6\%). La medida F1 se reporta en 25 estudios (47.2\%), en tanto que AUC y Dice presentan una presencia mucho más limitada, con 6 y 1 estudios, respectivamente.
+
+Este patrón indica que la literatura privilegia métricas de uso general, como exactitud, precisión y sensibilidad, pero al mismo tiempo incorpora indicadores específicos de detección, como mAP, IoU y FPS, cuando la tarea lo requiere. En contraste, las métricas más propias de segmentación aparecen con menor frecuencia, lo que también es consistente con la menor presencia de esta tarea en el corpus revisado.
+
+Aunque la frecuencia general de las métricas ofrece una primera aproximación al patrón de evaluación, su interpretación requiere considerar el tipo de tarea y la familia de modelos utilizada. En este sentido, la Tabla~\ref{tab:rq2-metricas-tarea-modelo} resume dicha relación. \\
+
+\begin{table}[H]
+    \centering
+    \caption{Relación comparativa entre tarea, tipo de modelo y métricas predominantes}
+    \label{tab:rq2-metricas-tarea-modelo}
+    \small
+    \begin{tabularx}{\textwidth}{p{2.2cm} p{4.0cm} p{4.0cm} X}
+    \hline
+    \textbf{Tarea} & \textbf{Tipo de modelo predominante} & \textbf{Métricas predominantes} & \textbf{Comparativa} \\
+    \hline
+    Clasificación & ResNet, EfficientNet, MobileNet, Inception y otras CNN & Exactitud, precisión, recall, medida F1 y, en menor medida, AUC & La evaluación se centra en la capacidad de discriminar correctamente entre clases y resumir el desempeño global del clasificador. \\
+    
+    Detección & YOLO, Faster R-CNN y Mask R-CNN & mAP, IoU, FPS, además de precisión y recall & La evaluación combina calidad de localización, capacidad de detección y velocidad de inferencia, especialmente en escenarios de monitoreo automatizado. \\
+    
+    Segmentación & Mask R-CNN, YOLO con extensión de segmentación y otras arquitecturas de segmentación & IoU, Dice y medida F1 & La evaluación se orienta a la precisión espacial y al grado de solapamiento entre la predicción y la región de referencia. \\
+    \hline
+    \end{tabularx}
+
+    \vspace{-0.20 cm}
+    \begin{flushleft}
+    \normalfont\normalsize\textit{Nota.} Elaboración propia.
+    \end{flushleft}
+    
+\end{table}
+
+\vspace{-1.0 cm}
+La Tabla~\ref{tab:rq2-metricas-tarea-modelo} permite observar que las métricas cambian en frecuencia y en función del objetivo analítico del modelo. En clasificación predominan métricas asociadas al acierto global y al equilibrio entre clases, mientras que en detección adquieren mayor relevancia aquellas que combinan localización, precisión y velocidad. En segmentación, por su parte, las métricas se orientan a evaluar superposición espacial, lo que explica la presencia de IoU y Dice, aunque esta última aparezca con menor frecuencia debido a la reducida proporción de estudios de segmentación en el corpus.
+
+En consecuencia, la respuesta a RQ2 indica que la evaluación del reconocimiento de polinizadores mediante aprendizaje profundo se apoya principalmente en exactitud, precisión y sensibilidad a nivel global; sin embargo, cuando los estudios se comparan de acuerdo con la tarea y el tipo de modelo, se observa una diferenciación más clara: la clasificación privilegia exactitud, precisión, sensibilidad y medida F1; la detección incorpora de forma más marcada mAP, IoU y FPS; y la segmentación se apoya en métricas de superposición espacial como IoU, Dice y medida F1. 
+
+\section{RQ3. Factores técnicos asociados}
+
+Para responder la tercera pregunta de investigación, se identificaron tres factores técnicos recurrentes en los estudios incluidos: el aprendizaje por transferencia, el aumento de datos y los métodos de optimización. En primer lugar, se presenta la Tabla \ref{tab:rq3-factores-general-estudio} para reconocer qué estrategias fueron reportadas en cada investigación. \\
+
+\begingroup
+\newcommand{\marca}{\(\times\)}
+
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.95}
+\scriptsize
+
+\begin{xltabular}{\textwidth}{
+    >{\raggedright\arraybackslash}X
+    *{3}{>{\centering\arraybackslash}p{3.25cm}}
+}
+\caption{Factores técnicos generales reportados por estudio.}
+\label{tab:rq3-factores-general-estudio} \\
+
+\hline
+\textbf{Estudio} &
+\makecell{\textbf{Aprendizaje}\\\textbf{por transferencia}} &
+\makecell{\textbf{Aumento}\\\textbf{de datos}} &
+\makecell{\textbf{Método}\\\textbf{de optimización}} \\
+\hline
+\endfirsthead
+
+% No se repiten encabezados en las páginas siguientes
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\textbf{Total} & \textbf{34} & \textbf{49} & \textbf{27} \\
+\hline
+\\
+\multicolumn{4}{>{\raggedright\arraybackslash}p{\dimexpr\textwidth-2\tabcolsep\relax}}{
+\normalsize \textit{Nota.} Elaboración propia.
+} \\
+\endlastfoot
+
+\cite{alves2020detection} & \marca & \marca & \marca \\
+\cite{nizam2020segmentation} & \marca & \marca & \marca \\
+\cite{dembski2020weighted} &  &  & \marca \\
+\cite{zhang2021concatenated} & \marca &  &  \\
+\cite{braga2021intelligent} & \marca & \marca &  \\
+\cite{spiesman2021bumblebee} & \marca & \marca & \marca \\
+\cite{kelley2021sources} & \marca & \marca & \marca \\
+\cite{bozek2021markerless} &  & \marca &  \\
+\cite{voudiotis2021proposed} & \marca &  &  \\
+\cite{voudiotis2022beehive} & \marca & \marca &  \\
+\cite{suzukiohno2022increases} &  & \marca &  \\
+\cite{rodrigues2022deepwings} & \marca & \marca & \marca \\
+\cite{klasen2022species} & \marca & \marca & \marca \\
+\cite{balmaki2022modern} & \marca & \marca &  \\
+\cite{bjerge2022tracking} &  & \marca &  \\
+\cite{garcia2022software} &  &  & \marca \\
+\cite{kulyukin2023accuracy} &  & \marca & \marca \\
+\cite{bjerge2023accurate} & \marca & \marca &  \\
+\cite{gernat2023monitoring} &  & \marca & \marca \\
+\cite{yoo2023beenet} & \marca & \marca & \marca \\
+\cite{stiemer2023mbt3d} & \marca & \marca & \marca \\
+\cite{bjerge2023object} & \marca & \marca &  \\
+\cite{stark2023yolo} & \marca & \marca & \marca \\
+\cite{leocadio2024brazilian} &  & \marca &  \\
+\cite{lei2024out} &  & \marca &  \\
+\cite{bjerge2024pipeline} & \marca & \marca & \marca \\
+\cite{rohafauzi2024review} & \marca & \marca &  \\
+\cite{spiesman2024identifying} &  & \marca & \marca \\
+\cite{liang2024developing} & \marca & \marca & \marca \\
+\cite{santiagoplaza2024identification} & \marca & \marca & \marca \\
+\cite{nguyen2024improving} & \marca & \marca &  \\
+\cite{kongsilp2024individual} & \marca & \marca & \marca \\
+\cite{sledevic2024keypoint} &  & \marca & \marca \\
+\cite{sledevic2024labeled} &  & \marca &  \\
+\cite{rozenbaum2024machine} & \marca & \marca &  \\
+\cite{wittmann2024monitoring} &  & \marca &  \\
+\cite{ho2024motion} & \marca & \marca &  \\
+\cite{kriouile2024nested} & \marca & \marca &  \\
+\cite{padubidri2024hive} &  & \marca &  \\
+\cite{dadgostar2025subspecies} &  & \marca & \marca \\
+\cite{ostwald2025climate} &  & \marca & \marca \\
+\cite{taniguchi2025development} & \marca & \marca & \marca \\
+\cite{lee2025enhancing} &  & \marca &  \\
+\cite{alex2025pollinator} & \marca & \marca &  \\
+\cite{calisan2025evaluation} & \marca & \marca & \marca \\
+\cite{srinivas2025south} & \marca & \marca & \marca \\
+\cite{copeland2025larval} & \marca & \marca & \marca \\
+\cite{oliveira2025quantization} & \marca & \marca & \marca \\
+\cite{chiranjeevi2025insectnet} & \marca & \marca &  \\
+\cite{gomezjaime2025paint} &  & \marca &  \\
+\cite{stefan2025successes} & \marca & \marca &  \\
+\cite{stark2025pollinators} & \marca & \marca & \marca \\
+\cite{sledevic2025visual} &  & \marca &  \\
+
+\end{xltabular}
+
+\endgroup
+\normalsize
+
+\vspace{-1.0 cm}
+A partir de la Tabla~\ref{tab:rq3-factores-general-estudio}, se calcularon las frecuencias generales de aparición de cada factor técnico, como se indica en la Figura \ref{fig:rq3-factores-general}. \\
+
+\begin{figure}[H]
+    \centering
+    \caption{Frecuencia general de factores técnicos reportados en los estudios analizados.}
+    \label{fig:rq3-factores-general}
+
+    \begin{tikzpicture}[
+        font=\normalfont\normalsize,
+        barra/.style={
+            draw=black!60,
+            line width=0.25pt
+        }
+    ]
+
+    % Parámetros generales
+    \def\xinicio{5.2}
+    \def\escala{0.16}
+    \def\alto{0.24}
+    \def\sep{0.70}
+
+    % Encabezado
+    \node[anchor=east, font=\normalfont\normalsize] 
+        at (\xinicio-0.15,0.65) {Factor técnico};
+
+    % Barras: Factor / Frecuencia / Porcentaje / Color / Índice
+    \foreach \nombre/\valor/\porcentaje/\relleno/\i in {
+        {Aumento de datos}/49/92.5/{blue!45!gray!35}/0,
+        {Aprendizaje por transferencia}/34/64.2/{teal!40!gray!35}/1,
+        {Método de optimización}/27/50.9/{violet!35!gray!30}/2
+    }{
+        \pgfmathsetmacro{\y}{-\i*\sep}
+        \pgfmathsetmacro{\ancho}{\valor*\escala}
+
+        % Nombre del factor
+        \node[anchor=east, font=\normalfont\normalsize] 
+            at (\xinicio-0.15,\y) {\nombre};
+
+        % Barra
+        \filldraw[barra, fill=\relleno]
+            (\xinicio,\y-\alto/2)
+            rectangle
+            ({\xinicio+\ancho},\y+\alto/2);
+
+        % Frecuencia y porcentaje
+        \node[anchor=west, font=\normalfont\normalsize] 
+            at ({\xinicio+\ancho+0.15},\y) 
+            {\valor\;(\porcentaje\%)};
+    }
+
+    % Eje horizontal
+    \pgfmathsetmacro{\yeje}{-2*\sep-0.55}
+    \draw[black!70] (\xinicio,\yeje) -- ({\xinicio+50*\escala},\yeje);
+
+    % Marcas del eje
+    \foreach \x in {0,10,20,30,40,50}{
+        \pgfmathsetmacro{\xpos}{\xinicio+\x*\escala}
+        \draw[black!70] (\xpos,\yeje) -- (\xpos,\yeje-0.06);
+        \node[anchor=north, font=\normalfont\normalsize] 
+            at (\xpos,\yeje-0.08) {\x};
+    }
+
+    % Línea vertical de origen
+    \draw[black!70] (\xinicio,0.35) -- (\xinicio,\yeje);
+
+    % Etiqueta del eje
+    \node[font=\normalfont\normalsize] 
+        at ({\xinicio+25*\escala},\yeje-0.85) {Frecuencia};
+
+    \end{tikzpicture}
+    \vspace{-0.20 cm}
+    \begin{flushleft}
+    \normalfont\normalsize\textit{Nota.} Elaboración propia.
+    \end{flushleft}
+\end{figure}
+
+\vspace{-1.0 cm}
+El aumento de datos fue el factor técnico más frecuente, con 49 apariciones, equivalente al 92,5\% de los estudios. Le siguen el aprendizaje por transferencia, con 34 apariciones, y los métodos de optimización, con 27. Este patrón sugiere que la ampliación y diversificación artificial de los datos constituye una estrategia central en el reconocimiento de polinizadores, probablemente debido a la limitada disponibilidad de imágenes etiquetadas, la variabilidad de condiciones de captura y la necesidad de mejorar la capacidad de generalización de los modelos.
+
+Para profundizar en el análisis de RQ3, se revisaron las estrategias específicas incluidas dentro de cada factor técnico general. Esta revisión permitió identificar cuáles fueron las prácticas más recurrentes en la literatura y cómo se distribuyeron entre estudios metodológicamente comparables. La Tabla~\ref{tab:rq3-factores-especificos} resume estas menciones. \\
+
+\begingroup
+
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\scriptsize
+
+% Centra la tabla larga aunque no use todo el ancho de la página
+\setlength\LTleft{\fill}
+\setlength\LTright{\fill}
+
+\begin{xltabular}{11.2cm}{
+    @{}
+    >{\raggedright\arraybackslash}p{3.7cm}
+    >{\raggedright\arraybackslash}p{3.3cm}
+    >{\centering\arraybackslash}p{1.5cm}
+    >{\centering\arraybackslash}p{2.0cm}
+    @{}
+}
+\caption{Estrategias técnicas específicas reportadas en los estudios incluidos.}
+\label{tab:rq3-factores-especificos} \\
+
+\hline
+\textbf{Factor técnico} &
+\textbf{Detalle específico} &
+\textbf{Frecuencia} &
+\textbf{Porcentaje (\%)} \\
+\hline
+\endfirsthead
+
+% No se repiten encabezados en las páginas siguientes
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\multicolumn{4}{@{}>{\raggedright\arraybackslash}p{11.2cm}@{}}{
+\normalsize \textit{Nota.} Elaboración propia.
+} \\
+\endlastfoot
+
+Aprendizaje por transferencia & Preentrenado & 24 & 45.3 \\
+ & Transfer learning & 15 & 28.3 \\
+ & Ajuste fino & 10 & 18.9 \\
+
+Aumento de datos & Aumento de datos & 27 & 50.9 \\
+ & Recorte & 27 & 50.9 \\
+ & Rotación & 14 & 26.4 \\
+ & Volteo & 6 & 11.3 \\
+ & Mosaico & 3 & 5.7 \\
+ & Muestreo estratificado & 2 & 3.8 \\
+ & Datos sintéticos & 1 & 1.9 \\
+
+Método de optimización & Tasa de aprendizaje & 21 & 39.6 \\
+ & Optimizador & 12 & 22.6 \\
+ & Adam & 10 & 18.9 \\
+ & Momentum & 6 & 11.3 \\
+ & SGD & 6 & 11.3 \\
+ & Decaimiento de peso & 3 & 5.7 \\
+ & AdamW & 2 & 3.8 \\
+
+\end{xltabular}
+
+\endgroup
+
+\vspace{-1.0 cm}
+En aprendizaje por transferencia predominó el uso de modelos preentrenados, seguido de las menciones explícitas a \textit{transfer learning} y ajuste fino. En aumento de datos se repitieron con mayor frecuencia las menciones generales a \textit{data augmentation} y recorte, seguidas por rotación y volteo. En optimización, la estrategia más reportada fue el ajuste de la tasa de aprendizaje, seguida por la mención general del optimizador y del algoritmo Adam.
+
+
+En la misma línea, la asociación con mayores niveles de precisión no se interpreta como causalidad estadística, sino como recurrencia comparativa de factores técnicos en estudios con tarea, métricas y condiciones de evaluación semejantes. 
+
+Se identificaron cuatro bloques metodológicos comparables que permiten organizar la discusión de los resultados. Esta agrupación busca reconocer patrones comunes entre investigaciones que comparten objetivos técnicos similares.
+
+En el primer bloque se ubican los estudios orientados a tareas de clasificación. En esta línea, \textcite{alves2020detection}, \textcite{spiesman2021bumblebee}, \textcite{spiesman2024identifying}, \textcite{calisan2025evaluation} y \textcite{stark2025pollinators} reportan el uso de métricas como exactitud, precisión, sensibilidad y medida F1, junto con arquitecturas basadas principalmente en redes convolucionales, como ResNet, EfficientNet, Inception y MobileNet. En estos trabajos, el aprendizaje por transferencia, el aumento de datos, el recorte, la rotación y métodos de optimización como Adam, AdamW o descenso de gradiente estocástico aparecen como estrategias asociadas con la mejora de la generalización y la estabilidad del entrenamiento.
+
+Un segundo bloque corresponde a estudios de detección evaluados mediante métricas espaciales y de eficiencia, como mAP, IoU y FPS. En este grupo, \textcite{stark2023yolo}, \textcite{alex2025pollinator}, \textcite{lei2024out}, \textcite{sledevic2024keypoint}, \textcite{stefan2025successes} y \textcite{sledevic2025visual} emplean principalmente arquitecturas como YOLO, Faster R-CNN y Mask R-CNN. Estos estudios enfatizan estrategias como el ajuste fino, el aumento de datos, el recorte, el mosaico, la rotación, el aprendizaje previo y el ajuste de la tasa de aprendizaje, lo que sugiere que el rendimiento en detección depende tanto de la arquitectura como de la preparación del entrenamiento.
+
+Un tercer bloque reúne estudios de detección que, aunque trabajan con localización de objetos, reportan métricas más cercanas a la clasificación, como exactitud, precisión, sensibilidad y medida F1. En este caso, \textcite{kongsilp2024individual}, \textcite{nguyen2024improving} y \textcite{bjerge2023accurate} muestran combinaciones entre arquitecturas como YOLO, Faster R-CNN, Mask R-CNN y ResNet, junto con aprendizaje por transferencia, ajuste fino, aumento de datos, recorte y métodos de optimización como momentum, Adam o descenso de gradiente estocástico. Este bloque evidencia que algunos estudios de detección evalúan el desempeño desde una lógica general de acierto del modelo, lo que limita la comparación directa con investigaciones que priorizan métricas espaciales como mAP o IoU.
+
+Finalmente, el cuarto bloque corresponde a los estudios enfocados en segmentación. En esta categoría, \textcite{nizam2020segmentation}, \textcite{kongsilp2024individual}, \textcite{rodrigues2022deepwings} y \textcite{sledevic2025visual} reportan métricas como IoU, coeficiente Dice y medida F1, junto con arquitecturas como Mask R-CNN, YOLO y otros enfoques de segmentación. En estos trabajos, el aumento de datos, el recorte, el aprendizaje por transferencia, el ajuste fino y las configuraciones específicas de entrenamiento aparecen como factores relevantes para mejorar la precisión espacial del modelo.
+
+
+La respuesta a RQ3 indica que los factores técnicos asociados con mayores niveles de precisión reportada corresponden a combinaciones metodológicas recurrentes. En clasificación destacan la transferencia de aprendizaje y el aumento de datos; en detección, la asociación más clara se observa entre aumento de datos, ajuste fino y calibración de la tasa de aprendizaje, especialmente en estudios basados en YOLO; y en segmentación, aunque la evidencia es menor, vuelven a repetirse el aumento de datos y la adaptación del modelo mediante aprendizaje por transferencia.
+
+
+
+\section{Discusión}
+
+Los resultados de esta revisión muestran que el reconocimiento de imágenes de polinizadores mediante aprendizaje profundo constituye una línea activa de investigación, pero todavía presenta limitaciones en su consolidación metodológica. Aunque los estudios revisados evidencian avances importantes, no es posible afirmar que exista una arquitectura superior para todos los casos. El desempeño de los modelos depende del tipo de polinizador analizado, la tarea abordada, las condiciones de captura, el nivel taxonómico, el conjunto de datos y las métricas utilizadas \parencite{ratnayake2021agriculture, khanzhina2022combating, hoye2021entomology}. Por ello, la comparación entre estudios se realizó dentro de grupos metodológicamente semejantes.
+
+Una primera tendencia relevante es el predominio de la detección como tarea principal. Esto resulta coherente con las necesidades del monitoreo de polinizadores, donde muchas aplicaciones buscan localizar individuos en imágenes para estimar presencia, actividad, visitas florales, tránsito en colmenas o patrones de comportamiento. En estos escenarios, detectar al polinizador dentro de una escena compleja puede ser más útil que clasificar una imagen completa, ya que permite trabajar con registros visuales obtenidos en condiciones reales de campo \parencite{bjerge2022tracking, bjerge2023accurate, stark2023yolo, alex2025pollinator}.
+
+La alta presencia de modelos YOLO también se entiende desde esta lógica aplicada. En estudios de polinizadores, donde los insectos suelen ser pequeños, móviles y aparecen sobre fondos variables, se requieren modelos capaces de localizar objetos con rapidez. YOLO resulta atractivo porque combina localización y clasificación en una sola etapa, lo que favorece sistemas de monitoreo casi en tiempo real. Sin embargo, su predominio no implica que sea el mejor modelo para cualquier tarea. Su ventaja se observa principalmente cuando el objetivo es detectar polinizadores de forma eficiente en imágenes \parencite{kulyukin2023accuracy, stark2023yolo, stefan2025successes, alex2025pollinator}.
+
+En clasificación, las arquitecturas convolucionales profundas siguen siendo relevantes para diferenciar especies, familias o grupos funcionales de polinizadores. Esta tarea es especialmente exigente porque muchas especies presentan similitudes morfológicas, variación intraespecífica y rasgos visuales sutiles, como patrones en alas, coloración, forma corporal o estructuras específicas. Por tanto, el desempeño en clasificación depende del modelo, la calidad de las imágenes, la precisión de las etiquetas, el balance entre clases y el nivel taxonómico evaluado \parencite{spiesman2021bumblebee, spiesman2024identifying, calisan2025evaluation, srinivas2025south}.
+
+La segmentación aparece con menor frecuencia, pero tiene un valor importante para el análisis detallado de polinizadores. Esta tarea permite separar al insecto del fondo, delimitar individuos superpuestos o identificar regiones corporales específicas. Su baja presencia puede deberse a que requiere anotaciones más costosas y precisas, especialmente cuando se trabaja con organismos pequeños y fondos naturales complejos. Aun así, la segmentación puede ser clave en estudios donde se necesita analizar al polinizador en cuanto a: su forma, posición o interacción con flores y otros individuos \parencite{nizam2020segmentation, rodrigues2022deepwings, kriouile2024nested, sledevic2025visual}.
+
+Otro aspecto central es que las métricas condicionan la interpretación del rendimiento. En reconocimiento de polinizadores, una exactitud alta puede ser útil para clasificación, pero no indica necesariamente que el modelo localice bien al insecto dentro de la imagen. Por eso, en detección son más informativas métricas como mAP, IoU y FPS, ya que evalúan la calidad de localización y la viabilidad operativa del sistema. En segmentación, indicadores como IoU, Dice y F1 permiten valorar mejor el grado de coincidencia entre la región predicha y la región real del polinizador \parencite{varadarajan2021multiscale, saetchnikov2021uav, gupta2025cnn}.
+
+Esta diversidad de métricas evidencia una limitación importante del campo, ya que los resultados no siempre pueden compararse de forma directa entre estudios con tareas, datos y protocolos distintos. Sin embargo, esta revisión permite ordenar esa heterogeneidad mediante bloques metodológicamente comparables. Así, un modelo orientado a clasificar especies de abejas en imágenes controladas no se contrasta de la misma manera que un modelo diseñado para segmentar individuos en fondos florales complejos. Desde esta perspectiva, el análisis por bloques aporta una forma más rigurosa de interpretar el rendimiento reportado en la literatura y evita establecer comparaciones generales entre estudios que responden a objetivos técnicos diferentes.
+
+Los factores técnicos asociados al entrenamiento son especialmente relevantes en este dominio. Las imágenes de polinizadores suelen presentar variaciones de iluminación, escala, postura, movimiento, fondo, oclusión y calidad de captura. Además, los conjuntos de datos suelen ser limitados o desbalanceados, porque no todas las especies aparecen con la misma frecuencia ni son igual de fáciles de fotografiar. En este contexto, el aumento de datos, el aprendizaje por transferencia, el ajuste fino y la calibración de hiperparámetros son condiciones que pueden marcar la diferencia entre un modelo útil y uno que solo funciona en condiciones demasiado controladas \parencite{Kaur2022, nguyen2024improving, lee2025enhancing, sajib2025comparative}.
+
+El aumento de datos adquiere especial importancia porque permite simular parte de la variabilidad visual propia del monitoreo de polinizadores. Transformaciones como recorte, rotación, volteo, cambios de brillo o mosaico pueden ayudar al modelo a reconocer insectos en diferentes posiciones, tamaños y condiciones de iluminación. Sin embargo, estas técnicas deben aplicarse con cuidado, ya que una transformación excesiva podría alterar rasgos morfológicos relevantes para diferenciar especies o grupos taxonómicos \parencite{Kaur2022, Agarwal2025, lee2025enhancing}.
+
+El aprendizaje por transferencia también resulta pertinente porque muchos estudios trabajan con datos reducidos o difíciles de etiquetar. Aprovechar modelos preentrenados permite partir de representaciones visuales generales y adaptarlas al reconocimiento de polinizadores mediante ajuste fino. Esto puede reducir el costo de entrenamiento y mejorar la generalización, especialmente cuando se dispone de pocas imágenes por especie. No obstante, su efectividad depende de qué tan distinto sea el dominio de entrenamiento original respecto a las imágenes reales de polinizadores, que suelen incluir fondos naturales, flores, colmenas, trampas de cámara o especímenes capturados \parencite{Jagtap2025, Burri2023, zhang2021concatenated, nguyen2024improving}.
+
+La optimización del entrenamiento también influye en el desempeño final. El uso de optimizadores como Adam, AdamW o SGD, junto con la configuración de la tasa de aprendizaje, la regularización y las políticas de entrenamiento, puede explicar diferencias entre estudios que emplean arquitecturas similares. Dos modelos basados en YOLO o ResNet pueden comportarse de manera distinta si fueron entrenados con datos, aumentos, hiperparámetros y protocolos de validación diferentes \parencite{Postalcloǧlu2020, Azis2025, Sudewo2025}.
+
+Desde una perspectiva ecológica, estos avances son relevantes porque pueden apoyar el monitoreo de polinizadores en un contexto de creciente preocupación por su declive. La automatización del reconocimiento visual puede reducir la dependencia exclusiva de observación manual, facilitar el procesamiento de grandes volúmenes de imágenes y permitir seguimientos más frecuentes. En este sentido, su aplicación en monitoreo ecológico exige que los modelos sean evaluados más allá de bases controladas y demuestren robustez en escenarios reales, donde los polinizadores se mueven, se ocultan parcialmente, cambian de orientación y aparecen sobre fondos visualmente complejos \parencite{bjerge2022tracking, hellwig2024pollinator, stark2023yolo, wittmann2024monitoring}.
+
+La evidencia revisada muestra que el reconocimiento automatizado de polinizadores debe evaluarse por la precisión alcanzada por un modelo y por su capacidad para responder a una necesidad ecológica concreta. Detectar, clasificar o segmentar polinizadores implica objetivos distintos dentro del monitoreo, por lo que la utilidad de cada arquitectura depende de su ajuste con el tipo de imagen, el nivel taxonómico, las condiciones de captura y el protocolo de evaluación. Desde esta perspectiva, el avance del campo requiere fortalecer la validación en escenarios reales y ampliar tareas menos exploradas, especialmente la segmentación. Así, los modelos de aprendizaje profundo podrán aportar de manera más robusta al monitoreo ecológico y no limitarse a resultados favorables en entornos experimentales controlados.
